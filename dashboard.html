@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dashboard – Firta</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body class="dashboard-layout">
+
+  <!-- Loading Overlay -->
+  <div id="loading-overlay">
+    <div class="loading-inner">
+      <div class="loading-logo">firta.</div>
+      <div class="loading-dots">
+        <span></span><span></span><span></span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== DASHBOARD HEADER ===== -->
+  <header class="dash-header">
+    <div class="dash-header-inner">
+      <div>
+        <div class="logo">firta<span>.</span></div>
+        <div class="dash-welcome">Hello, <strong id="welcome-name">there</strong> 👋</div>
+      </div>
+      <div class="dash-header-actions">
+        <a href="add-item.html" class="btn btn-primary btn-sm">+ Add Item</a>
+        <span id="user-name" class="btn btn-ghost btn-sm" style="cursor:default">
+          <!-- filled by JS -->
+        </span>
+        <button id="logout-btn" class="btn btn-ghost btn-sm">
+          Sign Out
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ===== MAIN CONTENT ===== -->
+  <main class="dash-main page-fade">
+
+    <!-- Stats Row -->
+    <div class="dash-stats">
+      <div class="stat-card">
+        <div class="stat-label">Total Items</div>
+        <div class="stat-value" id="item-count">—</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Status</div>
+        <div class="stat-value" style="font-size:20px; padding-top:6px;">
+          <span class="badge badge-active">All Active</span>
+        </div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Live Tracking</div>
+        <div class="stat-value" style="font-size:20px; padding-top:6px;">
+          <span class="badge" style="background:#FFF7ED;color:#C2410C;">Coming Soon</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Items Section -->
+    <div class="section-header">
+      <h2>Your Items</h2>
+      <a href="add-item.html" class="btn btn-outline btn-sm">+ New Item</a>
+    </div>
+
+    <!-- Items are rendered here by JavaScript -->
+    <div id="items-container">
+      <!-- Loading state shown while JS fetches items -->
+      <div style="text-align:center;padding:48px;color:var(--gray-500)">
+        <div class="spinner spinner-dark" style="width:28px;height:28px;margin:0 auto 16px"></div>
+        <p>Loading your items...</p>
+      </div>
+    </div>
+
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>

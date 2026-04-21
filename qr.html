@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Your QR Code – Firta</title>
+  <link rel="stylesheet" href="style.css" />
+  <!-- QRCode.js library (no npm needed, loaded from CDN) -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+</head>
+<body class="qr-page">
+
+  <!-- Loading Overlay -->
+  <div id="loading-overlay">
+    <div class="loading-inner">
+      <div class="loading-logo">firta.</div>
+      <div class="loading-dots">
+        <span></span><span></span><span></span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== NAVBAR ===== -->
+  <nav class="navbar">
+    <div class="navbar-inner">
+      <div class="logo">firta<span>.</span></div>
+      <div class="nav-links">
+        <a href="dashboard.html" class="btn btn-ghost btn-sm">Dashboard</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ===== MAIN ===== -->
+  <main class="qr-main page-fade">
+
+    <!-- Success Banner -->
+    <div class="qr-success-banner">
+      <div class="qr-success-icon">🎉</div>
+      <div class="qr-success-text">
+        <h3>Item registered successfully!</h3>
+        <p>Your QR code is ready. Print it and attach to your item.</p>
+      </div>
+    </div>
+
+    <!-- QR Card -->
+    <div class="qr-card" id="qr-content">
+
+      <div class="qr-item-name" id="qr-item-name">Loading...</div>
+      <div class="qr-item-id" id="qr-item-id"></div>
+
+      <!-- QR Frame with Branding -->
+      <div style="display:flex; justify-content:center">
+        <div class="qr-frame">
+          <!-- QRCode.js will inject the QR image here -->
+          <div id="qr-code-container"></div>
+          <div class="qr-branding">Scan to return via Firta</div>
+        </div>
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="qr-actions">
+        <button class="btn btn-primary" id="download-btn">
+          ⬇️ Download QR
+        </button>
+        <a href="dashboard.html" class="btn btn-ghost">
+          ← Dashboard
+        </a>
+        <a href="add-item.html" class="btn btn-outline">
+          + Add Another
+        </a>
+      </div>
+
+    </div>
+
+    <!-- Instructions -->
+    <div class="card" style="text-align:left; margin-top:0">
+      <h3 style="font-size:16px; margin-bottom:14px">📋 What to do next</h3>
+      <div style="display:flex; flex-direction:column; gap:12px">
+        <div style="display:flex; gap:12px; align-items:flex-start">
+          <div style="font-size:20px; flex-shrink:0">1️⃣</div>
+          <div>
+            <strong style="font-size:14px">Download the QR code</strong>
+            <p style="font-size:13px; color:var(--gray-500); margin-top:2px">
+              Click "Download QR" above to save the image to your device.
+            </p>
+          </div>
+        </div>
+        <div style="display:flex; gap:12px; align-items:flex-start">
+          <div style="font-size:20px; flex-shrink:0">2️⃣</div>
+          <div>
+            <strong style="font-size:14px">Print and attach</strong>
+            <p style="font-size:13px; color:var(--gray-500); margin-top:2px">
+              Print the QR as a sticker or tag. Attach it to your bag, keys, laptop, etc.
+            </p>
+          </div>
+        </div>
+        <div style="display:flex; gap:12px; align-items:flex-start">
+          <div style="font-size:20px; flex-shrink:0">3️⃣</div>
+          <div>
+            <strong style="font-size:14px">You're protected</strong>
+            <p style="font-size:13px; color:var(--gray-500); margin-top:2px">
+              If anyone finds your item, scanning the QR will show them how to contact you.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>

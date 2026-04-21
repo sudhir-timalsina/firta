@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sign In – Firta</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body class="auth-page">
+
+  <div class="auth-card">
+    <!-- Logo -->
+    <div class="auth-logo">firta<span style="color:var(--dark)">.</span></div>
+
+    <h1 class="auth-title">Welcome back</h1>
+    <p class="auth-subtitle">Sign in to manage your items and QR codes.</p>
+
+    <!-- Alert box (shown on error/success) -->
+    <div id="login-alert" class="alert" style="display:none"></div>
+
+    <!-- Login Form -->
+    <form id="login-form" novalidate>
+
+      <div class="form-group">
+        <label for="email">Email Address</label>
+        <input
+          type="email"
+          id="email"
+          placeholder="you@example.com"
+          autocomplete="email"
+          required
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input
+          type="password"
+          id="password"
+          placeholder="Your password"
+          autocomplete="current-password"
+          required
+        />
+      </div>
+
+      <button type="submit" class="btn btn-primary btn-full btn-lg" id="login-btn">
+        Sign In
+      </button>
+
+    </form>
+
+    <div class="divider">or</div>
+
+    <a href="signup.html" class="btn btn-ghost btn-full">
+      Create a new account
+    </a>
+
+    <div class="auth-footer" style="margin-top:20px">
+      <a href="index.html" style="color:var(--gray-500)">← Back to home</a>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

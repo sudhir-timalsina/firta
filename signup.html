@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sign Up – Firta</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body class="auth-page">
+
+  <div class="auth-card">
+    <!-- Logo -->
+    <div class="auth-logo">firta<span style="color:var(--dark)">.</span></div>
+
+    <h1 class="auth-title">Create your account</h1>
+    <p class="auth-subtitle">Start protecting your belongings today — it's free.</p>
+
+    <!-- Alert box (shown on error/success) -->
+    <div id="signup-alert" class="alert" style="display:none"></div>
+
+    <!-- Signup Form -->
+    <form id="signup-form" novalidate>
+
+      <div class="form-group">
+        <label for="name">Full Name <span style="color:var(--danger)">*</span></label>
+        <input
+          type="text"
+          id="name"
+          placeholder="e.g. Priya Sharma"
+          autocomplete="name"
+          required
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="email">Email Address <span style="color:var(--danger)">*</span></label>
+        <input
+          type="email"
+          id="email"
+          placeholder="you@example.com"
+          autocomplete="email"
+          required
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="phone">Phone Number <span style="color:var(--danger)">*</span></label>
+        <input
+          type="tel"
+          id="phone"
+          placeholder="+977 9800000000"
+          autocomplete="tel"
+          required
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="address">Current Address</label>
+        <input
+          type="text"
+          id="address"
+          placeholder="e.g. Thamel, Kathmandu"
+          autocomplete="street-address"
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="password">Password <span style="color:var(--danger)">*</span></label>
+        <input
+          type="password"
+          id="password"
+          placeholder="At least 6 characters"
+          autocomplete="new-password"
+          required
+        />
+      </div>
+
+      <button type="submit" class="btn btn-primary btn-full btn-lg" id="signup-btn">
+        Create Account
+      </button>
+
+    </form>
+
+    <div class="auth-footer">
+      Already have an account?
+      <a href="login.html" style="font-weight:600">Sign in →</a>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
