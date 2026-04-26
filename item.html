@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Found an Item – Firta</title>
-  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="css/style.css" />
 </head>
 <body class="item-page">
 
@@ -18,9 +18,10 @@
     </div>
   </div>
 
-  <!-- ===== MAIN (filled by JS based on item status) ===== -->
+  <!-- ===== MAIN CONTENT (filled by JavaScript) ===== -->
   <main class="item-main page-fade">
 
+    <!-- JavaScript fills this div with item info -->
     <div id="item-content">
       <div style="text-align:center;padding:80px 24px;color:var(--gray-500)">
         <div class="spinner spinner-dark" style="width:32px;height:32px;margin:0 auto 16px"></div>
@@ -28,12 +29,13 @@
       </div>
     </div>
 
+    <!-- Powered by Firta -->
     <div class="powered-by">
       Powered by <a href="index.html">Firta</a> — Smart Lost &amp; Found
     </div>
 
   </main>
 
-  <script src="app.js"></script>
+  <script src="js/app.js"></script>
 </body>
 </html>
