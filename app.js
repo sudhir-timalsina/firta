@@ -1,6 +1,31 @@
-const SUPABASE_URL = 'https://zjbgwmildygmyvderadf.supabase.co';
-const SUPABASE_ANON_KEY = 'sb_publishable_yOk-XtOJtwWXfdGvfF9ZoA_KOGz_p-R';  
+// ============================================
+//  FIRTA – Smart Lost & Found System
+//  app.js – All JavaScript Logic
+// ============================================
+//
+//  ⚙️  STEP 1: Paste your Supabase details below
+//  ⚙️  STEP 2: Run supabase_setup.sql in Supabase SQL Editor
+//
+// ============================================
 
+// ============================================
+//  CONFIG – PASTE YOUR SUPABASE DETAILS HERE
+// ============================================
+const SUPABASE_URL      = 'https://YOUR_PROJECT_ID.supabase.co'; // 👈 Replace
+const SUPABASE_ANON_KEY = 'YOUR_ANON_KEY_HERE';                  // 👈 Replace
+
+
+// ============================================
+//  SUPABASE FETCH WRAPPER
+// ============================================
+
+/**
+ * Makes a request to the Supabase REST API
+ * @param {string} endpoint  e.g. '/users' or '/items?id=eq.123'
+ * @param {string} method    GET | POST | PATCH | DELETE
+ * @param {object} body      request body for POST / PATCH
+ * @returns {Promise<{data, error}>}
+ */
 async function supabaseFetch(endpoint, method = 'GET', body = null) {
   try {
     const headers = {
@@ -24,45 +49,79 @@ async function supabaseFetch(endpoint, method = 'GET', body = null) {
   }
 }
 
-function setSession(user)  { localStorage.setItem('firta_user', JSON.stringify(user)); }
-function clearSession()    { localStorage.removeItem('firta_user'); }
+
+// ============================================
+//  SESSION HELPERS  (localStorage-based auth)
+// ============================================
+
+// Save logged-in user to localStorage
+function setSession(user) {
+  localStorage.setItem('firta_user', JSON.stringify(user));
+}
+
+// Get logged-in user from localStorage
 function getSession() {
   try { return JSON.parse(localStorage.getItem('firta_user')); }
   catch { return null; }
 }
+
+// Clear session (logout)
+function clearSession() {
+  localStorage.removeItem('firta_user');
+}
+
+// Redirect to login if not logged in — call on protected pages
 function requireAuth() {
   const user = getSession();
   if (!user) { window.location.href = 'login.html'; return null; }
   return user;
 }
 
+
+// ============================================
+//  UI HELPERS
+// ============================================
+
+// Show error or success message inside a div
 function showAlert(id, msg, type = 'error') {
   const el = document.getElementById(id);
   if (!el) return;
-  el.innerHTML = msg;
-  el.className = `alert alert-${type}`;
+  el.innerHTML     = msg;
+  el.className     = `alert alert-${type}`;
   el.style.display = 'block';
   el.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
 }
+
+// Hide an alert div
 function hideAlert(id) {
   const el = document.getElementById(id);
   if (el) el.style.display = 'none';
 }
+
+// Put a button into loading state
 function setButtonLoading(btn, text = 'Loading...') {
   btn.dataset.original = btn.innerHTML;
   btn.innerHTML = `<span class="spinner"></span> ${text}`;
-  btn.disabled = true;
+  btn.disabled  = true;
 }
+
+// Restore button from loading state
 function resetButton(btn) {
   btn.innerHTML = btn.dataset.original || btn.innerHTML;
-  btn.disabled = false;
+  btn.disabled  = false;
 }
+
+// Get a URL query param — e.g. getParam('id') from ?id=abc
 function getParam(key) {
   return new URLSearchParams(window.location.search).get(key);
 }
+
+// Simple email format check
 function isValidEmail(email) {
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 }
+
+// Show / hide the full-page loading overlay
 function showLoader() {
   const el = document.getElementById('loading-overlay');
   if (el) el.classList.remove('hidden');
@@ -71,15 +130,21 @@ function hideLoader() {
   const el = document.getElementById('loading-overlay');
   if (el) el.classList.add('hidden');
 }
+
+// Escape HTML to prevent XSS when injecting user data into the DOM
 function escapeHTML(str) {
   if (!str) return '';
   return str
-    .replace(/&/g,  '&amp;')
-    .replace(/</g,  '&lt;')
-    .replace(/>/g,  '&gt;')
-    .replace(/"/g,  '&quot;');
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;');
 }
 
+
+// ============================================
+//  SIGNUP
+// ============================================
 async function handleSignup(e) {
   e.preventDefault();
   hideAlert('signup-alert');
@@ -90,35 +155,58 @@ async function handleSignup(e) {
   const address  = document.getElementById('address').value.trim();
   const password = document.getElementById('password').value;
 
+  // Validation
   if (!name || !email || !phone || !password) {
-    showAlert('signup-alert', '⚠️ Please fill in all required fields.', 'error'); return;
+    showAlert('signup-alert', '⚠️ Please fill in all required fields.', 'error');
+    return;
   }
   if (!isValidEmail(email)) {
-    showAlert('signup-alert', '⚠️ Please enter a valid email address.', 'error'); return;
+    showAlert('signup-alert', '⚠️ Please enter a valid email address.', 'error');
+    return;
   }
   if (password.length < 6) {
-    showAlert('signup-alert', '⚠️ Password must be at least 6 characters.', 'error'); return;
+    showAlert('signup-alert', '⚠️ Password must be at least 6 characters.', 'error');
+    return;
   }
 
   const btn = document.getElementById('signup-btn');
   setButtonLoading(btn, 'Creating account...');
 
-  const { data: existing } = await supabaseFetch(`/users?email=eq.${encodeURIComponent(email)}&select=id`);
+  // Check if email already registered
+  const { data: existing } = await supabaseFetch(
+    `/users?email=eq.${encodeURIComponent(email)}&select=id`
+  );
   if (existing && existing.length > 0) {
     showAlert('signup-alert', '⚠️ An account with this email already exists. <a href="login.html">Sign in</a>', 'error');
-    resetButton(btn); return;
+    resetButton(btn);
+    return;
   }
 
-  const { data, error } = await supabaseFetch('/users', 'POST', { name, email, phone, address, password });
+  // Insert new user
+  // ⚠️  Password stored as plain text — for demo only.
+  //     Use Supabase Auth in production for proper security.
+  const { data, error } = await supabaseFetch('/users', 'POST', {
+    name, email, phone, address, password
+  });
+
   resetButton(btn);
 
-  if (error) { showAlert('signup-alert', `❌ ${error}`, 'error'); return; }
+  if (error) {
+    showAlert('signup-alert', `❌ ${error}`, 'error');
+    return;
+  }
 
-  if (data && data.length > 0) setSession({ id: data[0].id, name: data[0].name, email: data[0].email });
+  if (data && data.length > 0) {
+    setSession({ id: data[0].id, name: data[0].name, email: data[0].email });
+  }
   showAlert('signup-alert', '✅ Account created! Redirecting...', 'success');
   setTimeout(() => window.location.href = 'dashboard.html', 1200);
 }
 
+
+// ============================================
+//  LOGIN
+// ============================================
 async function handleLogin(e) {
   e.preventDefault();
   hideAlert('login-alert');
@@ -127,7 +215,8 @@ async function handleLogin(e) {
   const password = document.getElementById('password').value;
 
   if (!email || !password) {
-    showAlert('login-alert', '⚠️ Please enter your email and password.', 'error'); return;
+    showAlert('login-alert', '⚠️ Please enter your email and password.', 'error');
+    return;
   }
 
   const btn = document.getElementById('login-btn');
@@ -136,20 +225,32 @@ async function handleLogin(e) {
   const { data, error } = await supabaseFetch(
     `/users?email=eq.${encodeURIComponent(email)}&password=eq.${encodeURIComponent(password)}&select=id,name,email`
   );
+
   resetButton(btn);
 
-  if (error)                        { showAlert('login-alert', `❌ ${error}`, 'error'); return; }
-  if (!data || data.length === 0)   { showAlert('login-alert', '❌ Invalid email or password.', 'error'); return; }
+  if (error) {
+    showAlert('login-alert', `❌ ${error}`, 'error');
+    return;
+  }
+  if (!data || data.length === 0) {
+    showAlert('login-alert', '❌ Invalid email or password.', 'error');
+    return;
+  }
 
   setSession({ id: data[0].id, name: data[0].name, email: data[0].email });
   showAlert('login-alert', '✅ Logged in! Redirecting...', 'success');
   setTimeout(() => window.location.href = 'dashboard.html', 1000);
 }
 
+
+// ============================================
+//  DASHBOARD
+// ============================================
 async function loadDashboard() {
   const user = requireAuth();
   if (!user) return;
 
+  // Fill in user name in header
   const nameEl    = document.getElementById('user-name');
   const welcomeEl = document.getElementById('welcome-name');
   if (nameEl)    nameEl.textContent    = user.name;
@@ -161,25 +262,20 @@ async function loadDashboard() {
   );
   hideLoader();
 
-  const total    = items ? items.length                              : 0;
-  const lostCount = items ? items.filter(i => i.status === 'lost').length : 0;
-  const safeCount = total - lostCount;
-
+  // Update total count stat
   const countEl = document.getElementById('item-count');
-  const lostEl  = document.getElementById('lost-count');
-  const safeEl  = document.getElementById('safe-count');
-  if (countEl) countEl.textContent = total;
-  if (lostEl)  lostEl.textContent  = lostCount;
-  if (safeEl)  safeEl.textContent  = safeCount;
+  if (countEl) countEl.textContent = items ? items.length : 0;
 
   if (error) {
     document.getElementById('items-container').innerHTML =
       `<p class="text-muted" style="padding:24px">Could not load items. ${error}</p>`;
     return;
   }
+
   renderItems(items || []);
 }
 
+// Render the items grid or empty state
 function renderItems(items) {
   const container = document.getElementById('items-container');
   if (!container) return;
@@ -198,100 +294,46 @@ function renderItems(items) {
   container.innerHTML = `<div class="items-grid">${items.map(itemCardHTML).join('')}</div>`;
 }
 
+// Build one item card HTML string
 function itemCardHTML(item) {
-  const isLost   = item.status === 'lost';
-  const created  = new Date(item.created_at).toLocaleDateString('en-US', {
+  const created = new Date(item.created_at).toLocaleDateString('en-US', {
     month: 'short', day: 'numeric', year: 'numeric'
   });
 
   return `
-    <div class="item-card" id="card-${item.id}">
-
-      <!-- Top row: icon + name + status badge -->
+    <div class="item-card">
       <div class="item-card-top">
-        <div class="item-icon">${isLost ? '🔴' : '📦'}</div>
+        <div class="item-icon">📦</div>
         <div style="flex:1;min-width:0">
           <div class="item-name">${escapeHTML(item.name)}</div>
           <div class="item-contact">${escapeHTML(item.contact)}</div>
         </div>
-        <span class="badge ${isLost ? 'badge-lost' : 'badge-active'}">
-          ${isLost ? '🔴 Lost' : '✅ Safe'}
-        </span>
+        <span class="badge badge-active">Active</span>
       </div>
-
-      <!-- Status notice shown when lost -->
-      ${isLost ? `
-      <div class="item-lost-notice">
-        <span>🚨</span>
-        <span>Marked as lost — finder can now see your contact info</span>
-      </div>` : `
-      <div class="item-safe-notice">
-        <span>🔒</span>
-        <span>Contact info is hidden from finders while item is safe</span>
-      </div>`}
-
       <div style="font-size:12px;color:var(--gray-500);margin-bottom:16px;">
         Added ${created}
       </div>
-
-      <!-- Footer buttons -->
       <div class="item-card-footer">
         <a href="qr.html?id=${item.id}" class="btn btn-primary btn-sm">
           📱 View QR
         </a>
-
-        <!-- Mark Lost / Mark Found toggle -->
-        <button
-          class="btn btn-sm ${isLost ? 'btn-success' : 'btn-danger'}"
-          onclick="toggleStatus('${item.id}', '${item.status}', this)">
-          ${isLost ? '✅ Mark Found' : '🔴 Mark Lost'}
-        </button>
-
         <a href="item.html?id=${item.id}" class="btn btn-ghost btn-sm" target="_blank">
           👁 Preview
         </a>
       </div>
-
     </div>`;
 }
 
-async function toggleStatus(itemId, currentStatus, btn) {
-  const newStatus = currentStatus === 'lost' ? 'active' : 'lost';
-  const action    = newStatus === 'lost' ? 'lost' : 'found';
-
-  // Confirm with user
-  const confirmed = confirm(
-    newStatus === 'lost'
-      ? '🔴 Mark this item as LOST?\n\nFinders who scan the QR will be able to see your contact information.'
-      : '✅ Mark this item as FOUND / SAFE?\n\nYour contact info will be hidden from finders again.'
-  );
-  if (!confirmed) return;
-
-  const originalText = btn.innerHTML;
-  btn.innerHTML = '<span class="spinner"></span>';
-  btn.disabled  = true;
-
-  const { error } = await supabaseFetch(
-    `/items?id=eq.${itemId}`,
-    'PATCH',
-    { status: newStatus }
-  );
-
-  if (error) {
-    btn.innerHTML = originalText;
-    btn.disabled  = false;
-    alert('❌ Could not update status. Please try again.');
-    return;
-  }
-
-  loadDashboard();
-}
-
+// Handle logout
 function handleLogout() {
   clearSession();
   window.location.href = 'index.html';
 }
 
+
+// ============================================
+//  ADD ITEM
+// ============================================
 async function handleAddItem(e) {
   e.preventDefault();
   hideAlert('item-alert');
@@ -303,23 +345,25 @@ async function handleAddItem(e) {
   const contact = document.getElementById('item-contact').value.trim();
 
   if (!name || !contact) {
-    showAlert('item-alert', '⚠️ Please fill in all fields.', 'error'); return;
+    showAlert('item-alert', '⚠️ Please fill in all fields.', 'error');
+    return;
   }
 
   const btn = document.getElementById('add-btn');
   setButtonLoading(btn, 'Saving item...');
 
-  // status defaults to 'active' in the DB (contact hidden from finders)
   const { data, error } = await supabaseFetch('/items', 'POST', {
     name,
     contact,
-    user_id: user.id,
-    status:  'active'
+    user_id: user.id
   });
 
   resetButton(btn);
 
-  if (error) { showAlert('item-alert', `❌ ${error}`, 'error'); return; }
+  if (error) {
+    showAlert('item-alert', `❌ ${error}`, 'error');
+    return;
+  }
 
   if (data && data.length > 0) {
     window.location.href = `qr.html?id=${data[0].id}`;
@@ -333,7 +377,8 @@ async function handleAddItem(e) {
 async function loadQRPage() {
   const itemId = getParam('id');
   if (!itemId) {
-    document.getElementById('qr-content').innerHTML = '<p class="text-muted">No item ID found.</p>';
+    document.getElementById('qr-content').innerHTML =
+      '<p class="text-muted">No item ID found.</p>';
     return;
   }
 
@@ -342,7 +387,8 @@ async function loadQRPage() {
   hideLoader();
 
   if (error || !data || data.length === 0) {
-    document.getElementById('qr-content').innerHTML = '<p class="text-muted">Item not found.</p>';
+    document.getElementById('qr-content').innerHTML =
+      '<p class="text-muted">Item not found.</p>';
     return;
   }
 
@@ -351,36 +397,35 @@ async function loadQRPage() {
   document.getElementById('qr-item-name').textContent = item.name;
   document.getElementById('qr-item-id').textContent   = `ID: ${item.id}`;
 
-  // Build the public URL embedded in the QR
-  const baseUrl  = window.location.href.replace(/qr\.html.*$/, '');
-  const itemUrl  = `${baseUrl}item.html?id=${item.id}`;
+  // Build the public URL embedded in the QR code
+  const baseUrl = window.location.href.replace(/qr\.html.*$/, '');
+  const itemUrl = `${baseUrl}item.html?id=${item.id}`;
 
   // Generate QR using QRCode.js (loaded from CDN in qr.html)
   new QRCode(document.getElementById('qr-code-container'), {
-    text:          itemUrl,
-    width:         200,
-    height:        200,
-    colorDark:     '#2563EB',
-    colorLight:    '#FFFFFF',
-    correctLevel:  QRCode.CorrectLevel.H
+    text:         itemUrl,
+    width:        200,
+    height:       200,
+    colorDark:    '#2563EB',
+    colorLight:   '#FFFFFF',
+    correctLevel: QRCode.CorrectLevel.H
   });
 
   // Download button
   document.getElementById('download-btn').addEventListener('click', () => {
     const canvas = document.querySelector('#qr-code-container canvas');
     const img    = document.querySelector('#qr-code-container img');
-    const source = canvas || img;
-    if (!source) return;
-    const link      = document.createElement('a');
-    link.download   = `firta-qr-${item.name.replace(/\s+/g, '-')}.png`;
-    link.href       = canvas ? canvas.toDataURL('image/png') : img.src;
+    if (!canvas && !img) return;
+    const link    = document.createElement('a');
+    link.download = `firta-qr-${item.name.replace(/\s+/g, '-')}.png`;
+    link.href     = canvas ? canvas.toDataURL('image/png') : img.src;
     link.click();
   });
 }
 
 
 // ============================================
-//  ITEM PUBLIC PAGE  (what finders see)
+//  ITEM PUBLIC PAGE  (what finders see after scanning QR)
 // ============================================
 async function loadItemPage() {
   const itemId  = getParam('id');
@@ -401,7 +446,7 @@ async function loadItemPage() {
   const { data, error } = await supabaseFetch(`/items?id=eq.${itemId}`);
   hideLoader();
 
-  // DB error or no result
+  // DB error or item removed
   if (error || !data || data.length === 0) {
     if (content) content.innerHTML = `
       <div class="card text-center" style="padding:48px">
@@ -412,57 +457,7 @@ async function loadItemPage() {
     return;
   }
 
-  const item   = data[0];
-  const isLost = item.status === 'lost';
-
-  // ── ITEM IS SAFE — hide contact info from finder ──────────────────────────
-  if (!isLost) {
-    if (content) content.innerHTML = `
-      <div class="firta-badge">🔷 Registered on Firta</div>
-
-      <div class="item-hero-card page-fade">
-
-        <div class="item-safe-icon">🔒</div>
-
-        <h1>${escapeHTML(item.name)}</h1>
-        <p class="item-subtitle">This item is registered on Firta.</p>
-
-        <!-- Safe notice box -->
-        <div class="safe-status-box">
-          <div class="safe-status-icon">✅</div>
-          <div class="safe-status-text">
-            <strong>This item is currently safe with its owner.</strong>
-            <p>
-              The owner has not reported this item as lost.
-              If you found this item, the owner may not be aware it is missing yet.
-            </p>
-          </div>
-        </div>
-
-        <!-- What to do tip -->
-        <div class="finder-tip">
-          <div class="finder-tip-title">💡 Did you find this item?</div>
-          <p>
-            Hold on to it safely. The owner may mark it as lost soon and
-            contact information will become visible here automatically.
-            Try scanning the QR again in a little while.
-          </p>
-        </div>
-
-      </div>
-
-      <div class="coming-soon-card">
-        <span class="cs-icon">📍</span>
-        <div class="cs-text">
-          <h3>Live GPS Tracking</h3>
-          <p>Real-time location sharing between finder and owner</p>
-        </div>
-        <span class="cs-badge">Coming Soon</span>
-      </div>`;
-    return;
-  }
-
-  // ── ITEM IS LOST — show full contact info to finder ───────────────────────
+  const item    = data[0];
   const isPhone = /^[\+\d\s\-\(\)]{6,}$/.test(item.contact);
   const isEmail = isValidEmail(item.contact);
 
@@ -470,30 +465,18 @@ async function loadItemPage() {
     <div class="firta-badge">🔷 Registered on Firta</div>
 
     <div class="item-hero-card page-fade">
-
-      <!-- Lost alert banner at top of card -->
-      <div class="lost-alert-banner">
-        <span class="lost-alert-icon">🔴</span>
-        <div>
-          <strong>This item has been reported lost</strong>
-          <p>The owner is looking for it — please get in touch!</p>
-        </div>
-      </div>
-
       <div class="item-hero-icon">📦</div>
       <h1>${escapeHTML(item.name)}</h1>
-      <p class="item-subtitle">Help return this item to its owner.</p>
+      <p class="item-subtitle">This item belongs to someone — help return it!</p>
 
-      <!-- Contact info box -->
       <div class="contact-section">
-        <div class="contact-label">Owner Contact Information</div>
+        <div class="contact-label">Contact Information</div>
         <div class="contact-value">
           ${isPhone ? '📞' : isEmail ? '✉️' : '📋'}
           ${escapeHTML(item.contact)}
         </div>
       </div>
 
-      <!-- Call / Email buttons -->
       <div class="contact-actions">
 
         ${isPhone ? `
@@ -533,6 +516,7 @@ async function loadItemPage() {
 
 // ============================================
 //  PAGE ROUTER
+//  Runs the right function based on filename
 // ============================================
 (function init() {
   const page = window.location.pathname.split('/').pop() || 'index.html';
