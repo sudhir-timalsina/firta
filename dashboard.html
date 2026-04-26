@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Dashboard – Firta</title>
-  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="css/style.css" />
 </head>
 <body class="dashboard-layout">
 
@@ -27,52 +27,36 @@
       </div>
       <div class="dash-header-actions">
         <a href="add-item.html" class="btn btn-primary btn-sm">+ Add Item</a>
-        <span id="user-name" class="btn btn-ghost btn-sm" style="cursor:default"></span>
-        <button id="logout-btn" class="btn btn-ghost btn-sm">Sign Out</button>
+        <span id="user-name" class="btn btn-ghost btn-sm" style="cursor:default">
+          <!-- filled by JS -->
+        </span>
+        <button id="logout-btn" class="btn btn-ghost btn-sm">
+          Sign Out
+        </button>
       </div>
     </div>
   </header>
 
-  <!-- ===== MAIN ===== -->
+  <!-- ===== MAIN CONTENT ===== -->
   <main class="dash-main page-fade">
 
-    <!-- Stats Row — counts updated by JS -->
+    <!-- Stats Row -->
     <div class="dash-stats">
-
       <div class="stat-card">
         <div class="stat-label">Total Items</div>
         <div class="stat-value" id="item-count">—</div>
       </div>
-
       <div class="stat-card">
-        <div class="stat-label">Safe Items</div>
-        <div class="stat-value" id="safe-count" style="color:var(--success)">—</div>
-      </div>
-
-      <div class="stat-card">
-        <div class="stat-label">Lost Items</div>
-        <div class="stat-value" id="lost-count" style="color:var(--danger)">—</div>
-      </div>
-
-      <div class="stat-card">
-        <div class="stat-label">Live Tracking</div>
-        <div class="stat-value" style="font-size:18px;padding-top:8px">
-          <span class="badge" style="background:#FFF7ED;color:#C2410C;">Coming Soon</span>
+        <div class="stat-label">Status</div>
+        <div class="stat-value" style="font-size:20px; padding-top:6px;">
+          <span class="badge badge-active">All Active</span>
         </div>
       </div>
-
-    </div>
-
-    <!-- How Status Works — info banner -->
-    <div class="status-info-banner">
-      <div class="status-info-icon">ℹ️</div>
-      <div class="status-info-text">
-        <strong>How item status works:</strong>
-        While an item is <span class="tag-safe">✅ Safe</span>, finders who scan the QR
-        will <strong>not</strong> see your contact info — just a message that the item is safe.
-        When you mark it <span class="tag-lost">🔴 Lost</span>, your contact info becomes
-        visible to finders instantly. Mark it <span class="tag-safe">✅ Found</span> once
-        it's returned to hide your info again.
+      <div class="stat-card">
+        <div class="stat-label">Live Tracking</div>
+        <div class="stat-value" style="font-size:20px; padding-top:6px;">
+          <span class="badge" style="background:#FFF7ED;color:#C2410C;">Coming Soon</span>
+        </div>
       </div>
     </div>
 
@@ -82,7 +66,7 @@
       <a href="add-item.html" class="btn btn-outline btn-sm">+ New Item</a>
     </div>
 
-    <!-- Rendered by JS -->
+    <!-- Items are rendered here by JavaScript -->
     <div id="items-container">
       <div style="text-align:center;padding:48px;color:var(--gray-500)">
         <div class="spinner spinner-dark" style="width:28px;height:28px;margin:0 auto 16px"></div>
@@ -92,6 +76,6 @@
 
   </main>
 
-  <script src="app.js"></script>
+  <script src="js/app.js"></script>
 </body>
 </html>
