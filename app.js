@@ -1,58 +1,6 @@
-// ============================================
-//  FIRTA – Smart Lost & Found System
-//  app.js – All JavaScript Logic
-// ============================================
-//
-//  ⚙️  STEP 1: Paste your Supabase details below
-//  ⚙️  STEP 2: Run the SQL block in Supabase SQL Editor
-//
-// ============================================
-
-// ============================================
-//  CONFIG – PASTE YOUR SUPABASE DETAILS HERE
-// ============================================
 const SUPABASE_URL = 'https://zjbgwmildygmyvderadf.supabase.co';
 const SUPABASE_ANON_KEY = 'sb_publishable_yOk-XtOJtwWXfdGvfF9ZoA_KOGz_p-R';  
-// ============================================
-//  SUPABASE SETUP SQL
-//  Go to: Supabase Dashboard → SQL Editor → New Query → paste & run
-//
-//  create table users (
-//    id uuid default gen_random_uuid() primary key,
-//    name text not null,
-//    email text unique not null,
-//    phone text,
-//    address text,
-//    password text not null,
-//    created_at timestamptz default now()
-//  );
-//
-//  create table items (
-//    id uuid default gen_random_uuid() primary key,
-//    name text not null,
-//    contact text not null,
-//    user_id uuid references users(id),
-//    status text default 'active',   -- 'active' = safe, 'lost' = finder can see contact
-//    created_at timestamptz default now()
-//  );
-//
-//  alter table users enable row level security;
-//  alter table items enable row level security;
-//
-//  create policy "public read users"  on users for select using (true);
-//  create policy "public insert users" on users for insert with check (true);
-//  create policy "public read items"  on items for select using (true);
-//  create policy "public insert items" on items for insert with check (true);
-//  create policy "public update items" on items for update using (true);
-//
-//  -- If items table already exists without status column, run:
-//  alter table items add column if not exists status text default 'active';
-// ============================================
 
-
-// ============================================
-//  SUPABASE FETCH WRAPPER
-// ============================================
 async function supabaseFetch(endpoint, method = 'GET', body = null) {
   try {
     const headers = {
@@ -76,10 +24,6 @@ async function supabaseFetch(endpoint, method = 'GET', body = null) {
   }
 }
 
-
-// ============================================
-//  SESSION HELPERS
-// ============================================
 function setSession(user)  { localStorage.setItem('firta_user', JSON.stringify(user)); }
 function clearSession()    { localStorage.removeItem('firta_user'); }
 function getSession() {
@@ -92,10 +36,6 @@ function requireAuth() {
   return user;
 }
 
-
-// ============================================
-//  UI HELPERS
-// ============================================
 function showAlert(id, msg, type = 'error') {
   const el = document.getElementById(id);
   if (!el) return;
@@ -140,10 +80,6 @@ function escapeHTML(str) {
     .replace(/"/g,  '&quot;');
 }
 
-
-// ============================================
-//  SIGNUP
-// ============================================
 async function handleSignup(e) {
   e.preventDefault();
   hideAlert('signup-alert');
@@ -183,10 +119,6 @@ async function handleSignup(e) {
   setTimeout(() => window.location.href = 'dashboard.html', 1200);
 }
 
-
-// ============================================
-//  LOGIN
-// ============================================
 async function handleLogin(e) {
   e.preventDefault();
   hideAlert('login-alert');
@@ -214,10 +146,6 @@ async function handleLogin(e) {
   setTimeout(() => window.location.href = 'dashboard.html', 1000);
 }
 
-
-// ============================================
-//  DASHBOARD
-// ============================================
 async function loadDashboard() {
   const user = requireAuth();
   if (!user) return;
@@ -233,7 +161,6 @@ async function loadDashboard() {
   );
   hideLoader();
 
-  // Update stat counts
   const total    = items ? items.length                              : 0;
   const lostCount = items ? items.filter(i => i.status === 'lost').length : 0;
   const safeCount = total - lostCount;
@@ -271,7 +198,6 @@ function renderItems(items) {
   container.innerHTML = `<div class="items-grid">${items.map(itemCardHTML).join('')}</div>`;
 }
 
-// Build one item card — includes Mark Lost / Mark Found toggle
 function itemCardHTML(item) {
   const isLost   = item.status === 'lost';
   const created  = new Date(item.created_at).toLocaleDateString('en-US', {
@@ -329,10 +255,6 @@ function itemCardHTML(item) {
     </div>`;
 }
 
-
-// ============================================
-//  TOGGLE ITEM STATUS (Lost ↔ Safe)
-// ============================================
 async function toggleStatus(itemId, currentStatus, btn) {
   const newStatus = currentStatus === 'lost' ? 'active' : 'lost';
   const action    = newStatus === 'lost' ? 'lost' : 'found';
@@ -345,7 +267,6 @@ async function toggleStatus(itemId, currentStatus, btn) {
   );
   if (!confirmed) return;
 
-  // Loading state on button
   const originalText = btn.innerHTML;
   btn.innerHTML = '<span class="spinner"></span>';
   btn.disabled  = true;
@@ -363,20 +284,14 @@ async function toggleStatus(itemId, currentStatus, btn) {
     return;
   }
 
-  // Reload dashboard to reflect new state
   loadDashboard();
 }
 
-// Handle logout
 function handleLogout() {
   clearSession();
   window.location.href = 'index.html';
 }
 
-
-// ============================================
-//  ADD ITEM
-// ============================================
 async function handleAddItem(e) {
   e.preventDefault();
   hideAlert('item-alert');
