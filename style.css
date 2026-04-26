@@ -1,11 +1,4 @@
-/* ============================================
-   FIRTA – Smart Lost & Found System
-   style.css – Global Styles
-   ============================================ */
-
 @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap');
-
-/* ---------- CSS Variables ---------- */
 :root {
   --primary: #2563EB;
   --primary-dark: #1D4ED8;
@@ -31,8 +24,6 @@
   --radius-xl: 28px;
   --transition: all 0.22s cubic-bezier(0.4, 0, 0.2, 1);
 }
-
-/* ---------- Reset & Base ---------- */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 html { scroll-behavior: smooth; font-size: 16px; }
@@ -72,7 +63,6 @@ img { max-width: 100%; display: block; }
 .mt-3 { margin-top: 24px; }
 .mt-4 { margin-top: 32px; }
 
-/* ---------- Buttons ---------- */
 .btn {
   display: inline-flex;
   align-items: center;
@@ -147,8 +137,6 @@ img { max-width: 100%; display: block; }
   cursor: not-allowed;
   transform: none !important;
 }
-
-/* ---------- Navbar ---------- */
 .navbar {
   position: sticky;
   top: 0;
@@ -192,7 +180,6 @@ img { max-width: 100%; display: block; }
 .nav-center a:hover { color: var(--primary); }
 .nav-links { display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
 
-/* Mobile hamburger */
 .nav-toggle {
   display: none;
   flex-direction: column;
@@ -215,7 +202,6 @@ img { max-width: 100%; display: block; }
 .nav-toggle.active span:nth-child(2) { opacity: 0; }
 .nav-toggle.active span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
 
-/* Mobile nav dropdown */
 .nav-mobile {
   display: none;
   flex-direction: column;
@@ -232,7 +218,6 @@ img { max-width: 100%; display: block; }
   text-align: center;
 }
 
-/* ---------- Cards ---------- */
 .card {
   background: var(--white);
   border-radius: var(--radius-lg);
@@ -243,7 +228,6 @@ img { max-width: 100%; display: block; }
 }
 .card:hover { box-shadow: var(--shadow-lg); }
 
-/* ---------- Form Elements ---------- */
 .form-group {
   margin-bottom: 20px;
 }
@@ -277,7 +261,6 @@ img { max-width: 100%; display: block; }
 }
 .form-group input::placeholder { color: var(--gray-300); }
 
-/* ---------- Alert / Toast ---------- */
 .alert {
   padding: 13px 18px;
   border-radius: var(--radius-sm);
@@ -289,7 +272,6 @@ img { max-width: 100%; display: block; }
 .alert-success { background: #F0FDF4; border-color: var(--success); color: #166534; }
 .alert-info { background: var(--primary-light); border-color: var(--primary); color: var(--primary-dark); }
 
-/* ---------- Badge ---------- */
 .badge {
   display: inline-flex;
   align-items: center;
@@ -302,7 +284,6 @@ img { max-width: 100%; display: block; }
 .badge-lost { background: #FEE2E2; color: #991B1B; }
 .badge-found { background: #DBEAFE; color: #1E40AF; }
 
-/* ---------- Loading Spinner ---------- */
 .spinner {
   display: inline-block;
   width: 18px;
@@ -319,7 +300,6 @@ img { max-width: 100%; display: block; }
   border-top-color: var(--primary);
 }
 
-/* ---------- Page Fade-in ---------- */
 .page-fade {
   animation: fadeUp 0.4s ease both;
 }
@@ -328,11 +308,6 @@ img { max-width: 100%; display: block; }
   to   { opacity: 1; transform: translateY(0); }
 }
 
-/* ============================================
-   INDEX / LANDING PAGE
-   ============================================ */
-
-/* --- Hero --- */
 .hero {
   padding: 110px 24px 90px;
   text-align: center;
@@ -389,7 +364,6 @@ img { max-width: 100%; display: block; }
 }
 .hero-cta { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
 
-/* Hero stats row */
 .hero-stats {
   display: flex;
   align-items: center;
@@ -433,7 +407,6 @@ img { max-width: 100%; display: block; }
   flex-shrink: 0;
 }
 
-/* --- Trust bar --- */
 .trust-bar {
   padding: 28px 24px;
   background: var(--white);
@@ -470,7 +443,6 @@ img { max-width: 100%; display: block; }
   color: var(--primary-dark);
 }
 
-/* --- Steps section --- */
 .steps-section {
   padding: 88px 24px;
   background: var(--gray-50);
@@ -1202,9 +1174,6 @@ img { max-width: 100%; display: block; }
 }
 .empty-state p { font-size: 14px; margin-bottom: 24px; }
 
-/* ============================================
-   ADD ITEM PAGE
-   ============================================ */
 .add-item-page {
   min-height: 100vh;
   background: var(--gray-50);
@@ -1257,9 +1226,6 @@ img { max-width: 100%; display: block; }
 }
 .info-tip .icon { flex-shrink: 0; font-size: 16px; margin-top: 1px; }
 
-/* ============================================
-   QR PAGE
-   ============================================ */
 .qr-page {
   min-height: 100vh;
   background: var(--gray-50);
@@ -1327,9 +1293,6 @@ img { max-width: 100%; display: block; }
 }
 .qr-actions { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; margin-top: 24px; }
 
-/* ============================================
-   ITEM PUBLIC PAGE
-   ============================================ */
 .item-page {
   min-height: 100vh;
   background: var(--gray-50);
@@ -1464,9 +1427,6 @@ img { max-width: 100%; display: block; }
 }
 .powered-by a { color: var(--primary); font-weight: 600; }
 
-/* ============================================
-   LOADING OVERLAY
-   ============================================ */
 #loading-overlay {
   position: fixed; inset: 0;
   background: rgba(255,255,255,0.8);
@@ -1503,9 +1463,6 @@ img { max-width: 100%; display: block; }
   40% { transform: scale(1); opacity: 1; }
 }
 
-/* ============================================
-   RESPONSIVE
-   ============================================ */
 @media (max-width: 900px) {
   .features-grid { grid-template-columns: repeat(2, 1fr); }
   .feature-card--large { grid-column: span 2; }
