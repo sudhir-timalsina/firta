@@ -1,18 +1,18 @@
 const SUPABASE_URL = 'https://zjbgwmildygmyvderadf.supabase.co';
-const SUPABASE_ANON_KEY = 'sb_publishable_yOk-XtOJtwWXfdGvfF9ZoA_KOGz_p-R';  
+const SUPABASE_ANON_KEY = 'sb_publishable_yOk-XtOJtwWXfdGvfF9ZoA_KOGz_p-R';
 
 async function supabaseFetch(endpoint, method = 'GET', body = null) {
   try {
     const headers = {
-      'Content-Type':  'application/json',
-      'apikey':        SUPABASE_ANON_KEY,
+      'Content-Type': 'application/json',
+      'apikey': SUPABASE_ANON_KEY,
       'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
-      'Prefer':        method === 'POST' ? 'return=representation' : ''
+      'Prefer': method === 'POST' ? 'return=representation' : ''
     };
     const options = { method, headers };
     if (body) options.body = JSON.stringify(body);
 
-    const res  = await fetch(`${SUPABASE_URL}/rest/v1${endpoint}`, options);
+    const res = await fetch(`${SUPABASE_URL}/rest/v1${endpoint}`, options);
     const data = await res.json();
 
     if (!res.ok) {
@@ -24,8 +24,8 @@ async function supabaseFetch(endpoint, method = 'GET', body = null) {
   }
 }
 
-function setSession(user)  { localStorage.setItem('firta_user', JSON.stringify(user)); }
-function clearSession()    { localStorage.removeItem('firta_user'); }
+function setSession(user) { localStorage.setItem('firta_user', JSON.stringify(user)); }
+function clearSession() { localStorage.removeItem('firta_user'); }
 function getSession() {
   try { return JSON.parse(localStorage.getItem('firta_user')); }
   catch { return null; }
@@ -74,20 +74,20 @@ function hideLoader() {
 function escapeHTML(str) {
   if (!str) return '';
   return str
-    .replace(/&/g,  '&amp;')
-    .replace(/</g,  '&lt;')
-    .replace(/>/g,  '&gt;')
-    .replace(/"/g,  '&quot;');
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;');
 }
 
 async function handleSignup(e) {
   e.preventDefault();
   hideAlert('signup-alert');
 
-  const name     = document.getElementById('name').value.trim();
-  const email    = document.getElementById('email').value.trim();
-  const phone    = document.getElementById('phone').value.trim();
-  const address  = document.getElementById('address').value.trim();
+  const name = document.getElementById('name').value.trim();
+  const email = document.getElementById('email').value.trim();
+  const phone = document.getElementById('phone').value.trim();
+  const address = document.getElementById('address').value.trim();
   const password = document.getElementById('password').value;
 
   if (!name || !email || !phone || !password) {
@@ -123,7 +123,7 @@ async function handleLogin(e) {
   e.preventDefault();
   hideAlert('login-alert');
 
-  const email    = document.getElementById('email').value.trim();
+  const email = document.getElementById('email').value.trim();
   const password = document.getElementById('password').value;
 
   if (!email || !password) {
@@ -138,8 +138,8 @@ async function handleLogin(e) {
   );
   resetButton(btn);
 
-  if (error)                        { showAlert('login-alert', `❌ ${error}`, 'error'); return; }
-  if (!data || data.length === 0)   { showAlert('login-alert', '❌ Invalid email or password.', 'error'); return; }
+  if (error) { showAlert('login-alert', `❌ ${error}`, 'error'); return; }
+  if (!data || data.length === 0) { showAlert('login-alert', '❌ Invalid email or password.', 'error'); return; }
 
   setSession({ id: data[0].id, name: data[0].name, email: data[0].email });
   showAlert('login-alert', '✅ Logged in! Redirecting...', 'success');
@@ -150,27 +150,25 @@ async function loadDashboard() {
   const user = requireAuth();
   if (!user) return;
 
-  const nameEl    = document.getElementById('user-name');
+  const nameEl = document.getElementById('user-name');
   const welcomeEl = document.getElementById('welcome-name');
-  if (nameEl)    nameEl.textContent    = user.name;
+  if (nameEl) nameEl.textContent = user.name;
   if (welcomeEl) welcomeEl.textContent = user.name.split(' ')[0];
 
   showLoader();
-  const { data: items, error } = await supabaseFetch(
-    `/items?user_id=eq.${user.id}&order=created_at.desc`
-  );
+  const { data: items, error } = await supabaseFetch(`/items?user_id=eq.${user.id}&order=created_at.desc`);
   hideLoader();
 
-  const total    = items ? items.length                              : 0;
+  const total = items ? items.length : 0;
   const lostCount = items ? items.filter(i => i.status === 'lost').length : 0;
   const safeCount = total - lostCount;
 
   const countEl = document.getElementById('item-count');
-  const lostEl  = document.getElementById('lost-count');
-  const safeEl  = document.getElementById('safe-count');
+  const lostEl = document.getElementById('lost-count');
+  const safeEl = document.getElementById('safe-count');
   if (countEl) countEl.textContent = total;
-  if (lostEl)  lostEl.textContent  = lostCount;
-  if (safeEl)  safeEl.textContent  = safeCount;
+  if (lostEl) lostEl.textContent = lostCount;
+  if (safeEl) safeEl.textContent = safeCount;
 
   if (error) {
     document.getElementById('items-container').innerHTML =
@@ -199,15 +197,13 @@ function renderItems(items) {
 }
 
 function itemCardHTML(item) {
-  const isLost   = item.status === 'lost';
-  const created  = new Date(item.created_at).toLocaleDateString('en-US', {
+  const isLost = item.status === 'lost';
+  const created = new Date(item.created_at).toLocaleDateString('en-US', {
     month: 'short', day: 'numeric', year: 'numeric'
   });
 
   return `
     <div class="item-card" id="card-${item.id}">
-
-      <!-- Top row: icon + name + status badge -->
       <div class="item-card-top">
         <div class="item-icon">${isLost ? '🔴' : '📦'}</div>
         <div style="flex:1;min-width:0">
@@ -219,7 +215,6 @@ function itemCardHTML(item) {
         </span>
       </div>
 
-      <!-- Status notice shown when lost -->
       ${isLost ? `
       <div class="item-lost-notice">
         <span>🚨</span>
@@ -234,32 +229,23 @@ function itemCardHTML(item) {
         Added ${created}
       </div>
 
-      <!-- Footer buttons -->
       <div class="item-card-footer">
-        <a href="qr.html?id=${item.id}" class="btn btn-primary btn-sm">
-          📱 View QR
-        </a>
+        <a href="qr.html?id=${item.id}" class="btn btn-primary btn-sm">📱 View QR</a>
 
-        <!-- Mark Lost / Mark Found toggle -->
         <button
           class="btn btn-sm ${isLost ? 'btn-success' : 'btn-danger'}"
           onclick="toggleStatus('${item.id}', '${item.status}', this)">
           ${isLost ? '✅ Mark Found' : '🔴 Mark Lost'}
         </button>
 
-        <a href="item.html?id=${item.id}" class="btn btn-ghost btn-sm" target="_blank">
-          👁 Preview
-        </a>
+        <a href="item.html?id=${item.id}" class="btn btn-ghost btn-sm" target="_blank">👁 Preview</a>
       </div>
-
     </div>`;
 }
 
 async function toggleStatus(itemId, currentStatus, btn) {
   const newStatus = currentStatus === 'lost' ? 'active' : 'lost';
-  const action    = newStatus === 'lost' ? 'lost' : 'found';
 
-  // Confirm with user
   const confirmed = confirm(
     newStatus === 'lost'
       ? '🔴 Mark this item as LOST?\n\nFinders who scan the QR will be able to see your contact information.'
@@ -269,17 +255,13 @@ async function toggleStatus(itemId, currentStatus, btn) {
 
   const originalText = btn.innerHTML;
   btn.innerHTML = '<span class="spinner"></span>';
-  btn.disabled  = true;
+  btn.disabled = true;
 
-  const { error } = await supabaseFetch(
-    `/items?id=eq.${itemId}`,
-    'PATCH',
-    { status: newStatus }
-  );
+  const { error } = await supabaseFetch(`/items?id=eq.${itemId}`, 'PATCH', { status: newStatus });
 
   if (error) {
     btn.innerHTML = originalText;
-    btn.disabled  = false;
+    btn.disabled = false;
     alert('❌ Could not update status. Please try again.');
     return;
   }
@@ -299,7 +281,7 @@ async function handleAddItem(e) {
   const user = getSession();
   if (!user) { window.location.href = 'login.html'; return; }
 
-  const name    = document.getElementById('item-name').value.trim();
+  const name = document.getElementById('item-name').value.trim();
   const contact = document.getElementById('item-contact').value.trim();
 
   if (!name || !contact) {
@@ -309,12 +291,11 @@ async function handleAddItem(e) {
   const btn = document.getElementById('add-btn');
   setButtonLoading(btn, 'Saving item...');
 
-  // status defaults to 'active' in the DB (contact hidden from finders)
   const { data, error } = await supabaseFetch('/items', 'POST', {
     name,
     contact,
     user_id: user.id,
-    status:  'active'
+    status: 'active'
   });
 
   resetButton(btn);
@@ -326,10 +307,6 @@ async function handleAddItem(e) {
   }
 }
 
-
-// ============================================
-//  QR PAGE
-// ============================================
 async function loadQRPage() {
   const itemId = getParam('id');
   if (!itemId) {
@@ -349,44 +326,36 @@ async function loadQRPage() {
   const item = data[0];
 
   document.getElementById('qr-item-name').textContent = item.name;
-  document.getElementById('qr-item-id').textContent   = `ID: ${item.id}`;
+  document.getElementById('qr-item-id').textContent = `ID: ${item.id}`;
 
-  // Build the public URL embedded in the QR
-  const baseUrl  = window.location.href.replace(/qr\.html.*$/, '');
-  const itemUrl  = `${baseUrl}item.html?id=${item.id}`;
+  const baseUrl = window.location.href.replace(/qr\.html.*$/, '');
+  const itemUrl = `${baseUrl}item.html?id=${item.id}`;
 
-  // Generate QR using QRCode.js (loaded from CDN in qr.html)
   new QRCode(document.getElementById('qr-code-container'), {
-    text:          itemUrl,
-    width:         200,
-    height:        200,
-    colorDark:     '#2563EB',
-    colorLight:    '#FFFFFF',
-    correctLevel:  QRCode.CorrectLevel.H
+    text: itemUrl,
+    width: 200,
+    height: 200,
+    colorDark: '#2563EB',
+    colorLight: '#FFFFFF',
+    correctLevel: QRCode.CorrectLevel.H
   });
 
-  // Download button
   document.getElementById('download-btn').addEventListener('click', () => {
     const canvas = document.querySelector('#qr-code-container canvas');
-    const img    = document.querySelector('#qr-code-container img');
+    const img = document.querySelector('#qr-code-container img');
     const source = canvas || img;
     if (!source) return;
-    const link      = document.createElement('a');
-    link.download   = `firta-qr-${item.name.replace(/\s+/g, '-')}.png`;
-    link.href       = canvas ? canvas.toDataURL('image/png') : img.src;
+    const link = document.createElement('a');
+    link.download = `firta-qr-${item.name.replace(/\s+/g, '-')}.png`;
+    link.href = canvas ? canvas.toDataURL('image/png') : img.src;
     link.click();
   });
 }
 
-
-// ============================================
-//  ITEM PUBLIC PAGE  (what finders see)
-// ============================================
 async function loadItemPage() {
-  const itemId  = getParam('id');
+  const itemId = getParam('id');
   const content = document.getElementById('item-content');
 
-  // No ID in URL
   if (!itemId) {
     if (content) content.innerHTML = `
       <div class="card text-center" style="padding:48px">
@@ -401,7 +370,6 @@ async function loadItemPage() {
   const { data, error } = await supabaseFetch(`/items?id=eq.${itemId}`);
   hideLoader();
 
-  // DB error or no result
   if (error || !data || data.length === 0) {
     if (content) content.innerHTML = `
       <div class="card text-center" style="padding:48px">
@@ -412,22 +380,18 @@ async function loadItemPage() {
     return;
   }
 
-  const item   = data[0];
+  const item = data[0];
   const isLost = item.status === 'lost';
 
-  // ── ITEM IS SAFE — hide contact info from finder ──────────────────────────
   if (!isLost) {
     if (content) content.innerHTML = `
       <div class="firta-badge">🔷 Registered on Firta</div>
 
       <div class="item-hero-card page-fade">
-
         <div class="item-safe-icon">🔒</div>
-
         <h1>${escapeHTML(item.name)}</h1>
         <p class="item-subtitle">This item is registered on Firta.</p>
 
-        <!-- Safe notice box -->
         <div class="safe-status-box">
           <div class="safe-status-icon">✅</div>
           <div class="safe-status-text">
@@ -439,7 +403,6 @@ async function loadItemPage() {
           </div>
         </div>
 
-        <!-- What to do tip -->
         <div class="finder-tip">
           <div class="finder-tip-title">💡 Did you find this item?</div>
           <p>
@@ -448,7 +411,6 @@ async function loadItemPage() {
             Try scanning the QR again in a little while.
           </p>
         </div>
-
       </div>
 
       <div class="coming-soon-card">
@@ -462,7 +424,6 @@ async function loadItemPage() {
     return;
   }
 
-  // ── ITEM IS LOST — show full contact info to finder ───────────────────────
   const isPhone = /^[\+\d\s\-\(\)]{6,}$/.test(item.contact);
   const isEmail = isValidEmail(item.contact);
 
@@ -470,8 +431,6 @@ async function loadItemPage() {
     <div class="firta-badge">🔷 Registered on Firta</div>
 
     <div class="item-hero-card page-fade">
-
-      <!-- Lost alert banner at top of card -->
       <div class="lost-alert-banner">
         <span class="lost-alert-icon">🔴</span>
         <div>
@@ -484,7 +443,6 @@ async function loadItemPage() {
       <h1>${escapeHTML(item.name)}</h1>
       <p class="item-subtitle">Help return this item to its owner.</p>
 
-      <!-- Contact info box -->
       <div class="contact-section">
         <div class="contact-label">Owner Contact Information</div>
         <div class="contact-value">
@@ -493,9 +451,7 @@ async function loadItemPage() {
         </div>
       </div>
 
-      <!-- Call / Email buttons -->
       <div class="contact-actions">
-
         ${isPhone ? `
         <a href="tel:${encodeURIComponent(item.contact)}" class="contact-btn call-btn">
           <span class="cb-icon">📞</span>
@@ -516,7 +472,6 @@ async function loadItemPage() {
           <span class="cb-icon">✉️</span>
           No email
         </div>`}
-
       </div>
     </div>
 
@@ -530,10 +485,6 @@ async function loadItemPage() {
     </div>`;
 }
 
-
-// ============================================
-//  PAGE ROUTER
-// ============================================
 (function init() {
   const page = window.location.pathname.split('/').pop() || 'index.html';
 
