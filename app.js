@@ -11,9 +11,8 @@
 // ============================================
 //  CONFIG – PASTE YOUR SUPABASE DETAILS HERE
 // ============================================
-const SUPABASE_URL      = 'https://YOUR_PROJECT_ID.supabase.co'; // 👈 Replace
-const SUPABASE_ANON_KEY = 'YOUR_ANON_KEY_HERE';                  // 👈 Replace
-
+const SUPABASE_URL = 'https://zjbgwmildygmyvderadf.supabase.co';
+const SUPABASE_ANON_KEY = 'sb_publishable_yOk-XtOJtwWXfdGvfF9ZoA_KOGz_p-R';  
 
 // ============================================
 //  SUPABASE FETCH WRAPPER
