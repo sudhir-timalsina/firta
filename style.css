@@ -63,7 +63,6 @@ img { max-width: 100%; display: block; }
 .mt-3 { margin-top: 24px; }
 .mt-4 { margin-top: 32px; }
 
-/* ---------- Buttons ---------- */
 .btn {
   display: inline-flex;
   align-items: center;
@@ -99,7 +98,6 @@ img { max-width: 100%; display: block; }
 }
 .btn-outline:hover {
   background: var(--primary-light);
-   
   color: var(--primary-dark);
 }
 
@@ -139,7 +137,6 @@ img { max-width: 100%; display: block; }
   cursor: not-allowed;
   transform: none !important;
 }
-
 .navbar {
   position: sticky;
   top: 0;
@@ -287,6 +284,7 @@ img { max-width: 100%; display: block; }
 .badge-lost { background: #FEE2E2; color: #991B1B; }
 .badge-found { background: #DBEAFE; color: #1E40AF; }
 
+
 .spinner {
   display: inline-block;
   width: 18px;
@@ -409,6 +407,7 @@ img { max-width: 100%; display: block; }
   background: var(--gray-100);
   flex-shrink: 0;
 }
+
 .trust-bar {
   padding: 28px 24px;
   background: var(--white);
@@ -444,6 +443,7 @@ img { max-width: 100%; display: block; }
   border-color: var(--primary-light);
   color: var(--primary-dark);
 }
+
 .steps-section {
   padding: 88px 24px;
   background: var(--gray-50);
@@ -612,9 +612,7 @@ img { max-width: 100%; display: block; }
 
 .qr-preview-section {
   padding: 88px 24px;
-   
   background: var(--gray-50);
-   
   border-top: 1px solid var(--gray-100);
   border-bottom: 1px solid var(--gray-100);
 }
@@ -790,6 +788,7 @@ img { max-width: 100%; display: block; }
   color: var(--gray-500);
   line-height: 1.65;
 }
+
 .faq-section {
   padding: 88px 24px;
   background: var(--gray-50);
@@ -884,8 +883,6 @@ img { max-width: 100%; display: block; }
   background: rgba(255,255,255,0.25);
   color: var(--white);
 }
-
-/* --- Footer rich --- */
 .footer-rich {
   background: var(--dark);
   padding: 60px 24px 32px;
@@ -940,6 +937,8 @@ img { max-width: 100%; display: block; }
   font-size: 13px;
   color: rgba(255,255,255,0.35);
 }
+
+/* --- Old simple footer (kept for other pages) --- */
 .footer {
   text-align: center;
   padding: 32px 24px;
@@ -1007,6 +1006,7 @@ img { max-width: 100%; display: block; }
   height: 1px;
   background: var(--gray-100);
 }
+
 .dashboard-layout {
   min-height: 100vh;
   background: var(--gray-50);
@@ -1037,6 +1037,7 @@ img { max-width: 100%; display: block; }
   margin: 0 auto;
   padding: 36px 24px;
 }
+
 .dash-stats {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
@@ -1066,6 +1067,7 @@ img { max-width: 100%; display: block; }
   line-height: 1;
   letter-spacing: -0.5px;
 }
+
 .section-header {
   display: flex;
   align-items: center;
@@ -1080,11 +1082,13 @@ img { max-width: 100%; display: block; }
   font-weight: 700;
   letter-spacing: -0.3px;
 }
+
 .items-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
   gap: 20px;
 }
+
 .item-card {
   background: var(--white);
   border-radius: var(--radius-lg);
@@ -1137,6 +1141,7 @@ img { max-width: 100%; display: block; }
   padding-top: 16px;
   border-top: 1px solid var(--gray-100);
 }
+
 .empty-state {
   text-align: center;
   padding: 64px 24px;
@@ -1406,7 +1411,6 @@ img { max-width: 100%; display: block; }
   font-size: 13px;
 }
 .powered-by a { color: var(--primary); font-weight: 600; }
-
 #loading-overlay {
   position: fixed; inset: 0;
   background: rgba(255,255,255,0.8);
@@ -1442,7 +1446,6 @@ img { max-width: 100%; display: block; }
   0%, 80%, 100% { transform: scale(0.7); opacity: 0.4; }
   40% { transform: scale(1); opacity: 1; }
 }
-
 @media (max-width: 900px) {
   .features-grid { grid-template-columns: repeat(2, 1fr); }
   .feature-card--large { grid-column: span 2; }
