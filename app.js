@@ -1,30 +1,5 @@
-// ============================================
-//  FIRTA – Smart Lost & Found System
-//  app.js – All JavaScript Logic
-// ============================================
-//
-//  ⚙️  STEP 1: Paste your Supabase details below
-//  ⚙️  STEP 2: Run supabase_setup.sql in Supabase SQL Editor
-//
-// ============================================
-
-// ============================================
-//  CONFIG – PASTE YOUR SUPABASE DETAILS HERE
-// ============================================
 const SUPABASE_URL = 'https://zjbgwmildygmyvderadf.supabase.co';
 const SUPABASE_ANON_KEY = 'sb_publishable_yOk-XtOJtwWXfdGvfF9ZoA_KOGz_p-R';  
-
-// ============================================
-//  SUPABASE FETCH WRAPPER
-// ============================================
-
-/**
- * Makes a request to the Supabase REST API
- * @param {string} endpoint  e.g. '/users' or '/items?id=eq.123'
- * @param {string} method    GET | POST | PATCH | DELETE
- * @param {object} body      request body for POST / PATCH
- * @returns {Promise<{data, error}>}
- */
 async function supabaseFetch(endpoint, method = 'GET', body = null) {
   try {
     const headers = {
@@ -47,41 +22,23 @@ async function supabaseFetch(endpoint, method = 'GET', body = null) {
     return { data: null, error: 'Network error. Please check your connection.' };
   }
 }
-
-
-// ============================================
-//  SESSION HELPERS  (localStorage-based auth)
-// ============================================
-
-// Save logged-in user to localStorage
 function setSession(user) {
   localStorage.setItem('firta_user', JSON.stringify(user));
 }
 
-// Get logged-in user from localStorage
 function getSession() {
   try { return JSON.parse(localStorage.getItem('firta_user')); }
   catch { return null; }
 }
-
-// Clear session (logout)
 function clearSession() {
   localStorage.removeItem('firta_user');
 }
 
-// Redirect to login if not logged in — call on protected pages
 function requireAuth() {
   const user = getSession();
   if (!user) { window.location.href = 'login.html'; return null; }
   return user;
 }
-
-
-// ============================================
-//  UI HELPERS
-// ============================================
-
-// Show error or success message inside a div
 function showAlert(id, msg, type = 'error') {
   const el = document.getElementById(id);
   if (!el) return;
@@ -91,36 +48,33 @@ function showAlert(id, msg, type = 'error') {
   el.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
 }
 
-// Hide an alert div
 function hideAlert(id) {
   const el = document.getElementById(id);
   if (el) el.style.display = 'none';
 }
 
-// Put a button into loading state
 function setButtonLoading(btn, text = 'Loading...') {
   btn.dataset.original = btn.innerHTML;
   btn.innerHTML = `<span class="spinner"></span> ${text}`;
   btn.disabled  = true;
 }
 
-// Restore button from loading state
+
 function resetButton(btn) {
   btn.innerHTML = btn.dataset.original || btn.innerHTML;
   btn.disabled  = false;
 }
 
-// Get a URL query param — e.g. getParam('id') from ?id=abc
+
 function getParam(key) {
   return new URLSearchParams(window.location.search).get(key);
 }
 
-// Simple email format check
 function isValidEmail(email) {
+  
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 }
 
-// Show / hide the full-page loading overlay
 function showLoader() {
   const el = document.getElementById('loading-overlay');
   if (el) el.classList.remove('hidden');
@@ -130,7 +84,7 @@ function hideLoader() {
   if (el) el.classList.add('hidden');
 }
 
-// Escape HTML to prevent XSS when injecting user data into the DOM
+
 function escapeHTML(str) {
   if (!str) return '';
   return str
@@ -141,9 +95,6 @@ function escapeHTML(str) {
 }
 
 
-// ============================================
-//  SIGNUP
-// ============================================
 async function handleSignup(e) {
   e.preventDefault();
   hideAlert('signup-alert');
@@ -154,7 +105,7 @@ async function handleSignup(e) {
   const address  = document.getElementById('address').value.trim();
   const password = document.getElementById('password').value;
 
-  // Validation
+ 
   if (!name || !email || !phone || !password) {
     showAlert('signup-alert', '⚠️ Please fill in all required fields.', 'error');
     return;
@@ -171,7 +122,6 @@ async function handleSignup(e) {
   const btn = document.getElementById('signup-btn');
   setButtonLoading(btn, 'Creating account...');
 
-  // Check if email already registered
   const { data: existing } = await supabaseFetch(
     `/users?email=eq.${encodeURIComponent(email)}&select=id`
   );
@@ -181,9 +131,6 @@ async function handleSignup(e) {
     return;
   }
 
-  // Insert new user
-  // ⚠️  Password stored as plain text — for demo only.
-  //     Use Supabase Auth in production for proper security.
   const { data, error } = await supabaseFetch('/users', 'POST', {
     name, email, phone, address, password
   });
@@ -202,10 +149,6 @@ async function handleSignup(e) {
   setTimeout(() => window.location.href = 'dashboard.html', 1200);
 }
 
-
-// ============================================
-//  LOGIN
-// ============================================
 async function handleLogin(e) {
   e.preventDefault();
   hideAlert('login-alert');
@@ -242,9 +185,6 @@ async function handleLogin(e) {
 }
 
 
-// ============================================
-//  DASHBOARD
-// ============================================
 async function loadDashboard() {
   const user = requireAuth();
   if (!user) return;
@@ -261,7 +201,6 @@ async function loadDashboard() {
   );
   hideLoader();
 
-  // Update total count stat
   const countEl = document.getElementById('item-count');
   if (countEl) countEl.textContent = items ? items.length : 0;
 
@@ -274,7 +213,6 @@ async function loadDashboard() {
   renderItems(items || []);
 }
 
-// Render the items grid or empty state
 function renderItems(items) {
   const container = document.getElementById('items-container');
   if (!container) return;
@@ -293,7 +231,7 @@ function renderItems(items) {
   container.innerHTML = `<div class="items-grid">${items.map(itemCardHTML).join('')}</div>`;
 }
 
-// Build one item card HTML string
+
 function itemCardHTML(item) {
   const created = new Date(item.created_at).toLocaleDateString('en-US', {
     month: 'short', day: 'numeric', year: 'numeric'
@@ -323,16 +261,13 @@ function itemCardHTML(item) {
     </div>`;
 }
 
-// Handle logout
+
+
 function handleLogout() {
   clearSession();
   window.location.href = 'index.html';
 }
 
-
-// ============================================
-//  ADD ITEM
-// ============================================
 async function handleAddItem(e) {
   e.preventDefault();
   hideAlert('item-alert');
@@ -368,11 +303,6 @@ async function handleAddItem(e) {
     window.location.href = `qr.html?id=${data[0].id}`;
   }
 }
-
-
-// ============================================
-//  QR PAGE
-// ============================================
 async function loadQRPage() {
   const itemId = getParam('id');
   if (!itemId) {
@@ -396,11 +326,9 @@ async function loadQRPage() {
   document.getElementById('qr-item-name').textContent = item.name;
   document.getElementById('qr-item-id').textContent   = `ID: ${item.id}`;
 
-  // Build the public URL embedded in the QR code
   const baseUrl = window.location.href.replace(/qr\.html.*$/, '');
   const itemUrl = `${baseUrl}item.html?id=${item.id}`;
 
-  // Generate QR using QRCode.js (loaded from CDN in qr.html)
   new QRCode(document.getElementById('qr-code-container'), {
     text:         itemUrl,
     width:        200,
@@ -410,7 +338,6 @@ async function loadQRPage() {
     correctLevel: QRCode.CorrectLevel.H
   });
 
-  // Download button
   document.getElementById('download-btn').addEventListener('click', () => {
     const canvas = document.querySelector('#qr-code-container canvas');
     const img    = document.querySelector('#qr-code-container img');
@@ -421,16 +348,10 @@ async function loadQRPage() {
     link.click();
   });
 }
-
-
-// ============================================
-//  ITEM PUBLIC PAGE  (what finders see after scanning QR)
-// ============================================
 async function loadItemPage() {
   const itemId  = getParam('id');
   const content = document.getElementById('item-content');
 
-  // No ID in URL
   if (!itemId) {
     if (content) content.innerHTML = `
       <div class="card text-center" style="padding:48px">
@@ -445,7 +366,6 @@ async function loadItemPage() {
   const { data, error } = await supabaseFetch(`/items?id=eq.${itemId}`);
   hideLoader();
 
-  // DB error or item removed
   if (error || !data || data.length === 0) {
     if (content) content.innerHTML = `
       <div class="card text-center" style="padding:48px">
@@ -512,11 +432,6 @@ async function loadItemPage() {
     </div>`;
 }
 
-
-// ============================================
-//  PAGE ROUTER
-//  Runs the right function based on filename
-// ============================================
 (function init() {
   const page = window.location.pathname.split('/').pop() || 'index.html';
 
