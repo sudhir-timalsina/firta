@@ -1,30 +1,8 @@
-// ============================================
-//  FIRTA – Smart Lost & Found System
-//  app.js – All JavaScript Logic
-// ============================================
-//
-//  ⚙️  STEP 1: Paste your Supabase details below
-//  ⚙️  STEP 2: Run supabase_setup.sql in Supabase SQL Editor
-//
-// ============================================
 
-// ============================================
-//  CONFIG – PASTE YOUR SUPABASE DETAILS HERE
-// ============================================
 const SUPABASE_URL = 'https://zjbgwmildygmyvderadf.supabase.co';
 const SUPABASE_ANON_KEY = 'sb_publishable_yOk-XtOJtwWXfdGvfF9ZoA_KOGz_p-R';  
 
-// ============================================
-//  SUPABASE FETCH WRAPPER
-// ============================================
 
-/**
- * Makes a request to the Supabase REST API
- * @param {string} endpoint  e.g. '/users' or '/items?id=eq.123'
- * @param {string} method    GET | POST | PATCH | DELETE
- * @param {object} body      request body for POST / PATCH
- * @returns {Promise<{data, error}>}
- */
 async function supabaseFetch(endpoint, method = 'GET', body = null) {
   try {
     const headers = {
@@ -49,27 +27,23 @@ async function supabaseFetch(endpoint, method = 'GET', body = null) {
 }
 
 
-// ============================================
-//  SESSION HELPERS  (localStorage-based auth)
-// ============================================
 
-// Save logged-in user to localStorage
 function setSession(user) {
   localStorage.setItem('firta_user', JSON.stringify(user));
 }
 
-// Get logged-in user from localStorage
+
 function getSession() {
   try { return JSON.parse(localStorage.getItem('firta_user')); }
   catch { return null; }
 }
 
-// Clear session (logout)
+
 function clearSession() {
   localStorage.removeItem('firta_user');
 }
 
-// Redirect to login if not logged in — call on protected pages
+
 function requireAuth() {
   const user = getSession();
   if (!user) { window.location.href = 'login.html'; return null; }
@@ -77,11 +51,6 @@ function requireAuth() {
 }
 
 
-// ============================================
-//  UI HELPERS
-// ============================================
-
-// Show error or success message inside a div
 function showAlert(id, msg, type = 'error') {
   const el = document.getElementById(id);
   if (!el) return;
@@ -91,13 +60,13 @@ function showAlert(id, msg, type = 'error') {
   el.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
 }
 
-// Hide an alert div
+
 function hideAlert(id) {
   const el = document.getElementById(id);
   if (el) el.style.display = 'none';
 }
 
-// Put a button into loading state
+
 function setButtonLoading(btn, text = 'Loading...') {
   btn.dataset.original = btn.innerHTML;
   btn.innerHTML = `<span class="spinner"></span> ${text}`;
@@ -110,7 +79,6 @@ function resetButton(btn) {
   btn.disabled  = false;
 }
 
-// Get a URL query param — e.g. getParam('id') from ?id=abc
 function getParam(key) {
   return new URLSearchParams(window.location.search).get(key);
 }
