@@ -37,8 +37,6 @@ QRtrav (EU-based): Focuses on international travelers. They offer a subscription
 .
 Wingmate Tags: Developed by pilots, these tags combine NFC and QR technology specifically for the travel industry
 .
-
---------------------------------------------------------------------------------
 3. Market Pain Points & Consumer Needs
 Across both markets, consumers exhibit specific fears and requirements:
 Privacy Concerns: Users are increasingly reluctant to print their phone numbers or home addresses directly on tags
@@ -47,9 +45,7 @@ Privacy Concerns: Users are increasingly reluctant to print their phone numbers 
 Durability: Physical stickers must survive harsh conditions. Level H (30%) Error Correction is becoming a market standard to ensure codes remain scannable even when 30% damaged
 .
 Ease of Return: Finders want the "easiest possible path" to return an item. QR codes outperform traditional tags because they work on any smartphone without requiring a specific app
-.
 
---------------------------------------------------------------------------------
 4. Competitive Advantages for New Entrants (e.g., Firta)
 To compete effectively in Nepal and internationally, a project should emphasize:
 Dynamic Data: Unlike static "call this number" stickers, web-linked QR codes allow owners to update contact details instantly without replacing the physical sticker
@@ -59,7 +55,7 @@ Geolocation Integration: Utilizing the HTML5 Geolocation API to send the owner a
 No Subscription Model: Market research indicates that "smart people focus on what truly matters" and prefer free or one-time cost solutions over "endlessly draining" subscriptions
 .
 
---------------------------------------------------------------------------------
+
 5. Summary Table: Market Comparison
 Feature
 Nepal (Kataho Model)
