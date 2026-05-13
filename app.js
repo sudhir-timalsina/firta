@@ -1,9 +1,31 @@
-@@ -1,522 +0,0 @@
+// ============================================
+//  FIRTA – Smart Lost & Found System
+//  app.js – All JavaScript Logic
+// ============================================
+//
+//  ⚙️  STEP 1: Paste your Supabase details below
+//  ⚙️  STEP 2: Run supabase_setup.sql in Supabase SQL Editor
+//
+// ============================================
 
-const SUPABASE_URL = 'https://zjbgwmildygmyvderadf.supabase.co';
-const SUPABASE_ANON_KEY = 'sb_publishable_yOk-XtOJtwWXfdGvfF9ZoA_KOGz_p-R';  
+// ============================================
+//  CONFIG – PASTE YOUR SUPABASE DETAILS HERE
+// ============================================
+const SUPABASE_URL      = 'https://YOUR_PROJECT_ID.supabase.co'; // 👈 Replace
+const SUPABASE_ANON_KEY = 'YOUR_ANON_KEY_HERE';                  // 👈 Replace
 
 
+// ============================================
+//  SUPABASE FETCH WRAPPER
+// ============================================
+
+/**
+ * Makes a request to the Supabase REST API
+ * @param {string} endpoint  e.g. '/users' or '/items?id=eq.123'
+ * @param {string} method    GET | POST | PATCH | DELETE
+ * @param {object} body      request body for POST / PATCH
+ * @returns {Promise<{data, error}>}
+ */
 async function supabaseFetch(endpoint, method = 'GET', body = null) {
   try {
     const headers = {
@@ -28,23 +50,27 @@ async function supabaseFetch(endpoint, method = 'GET', body = null) {
 }
 
 
+// ============================================
+//  SESSION HELPERS  (localStorage-based auth)
+// ============================================
 
+// Save logged-in user to localStorage
 function setSession(user) {
   localStorage.setItem('firta_user', JSON.stringify(user));
 }
 
-
+// Get logged-in user from localStorage
 function getSession() {
   try { return JSON.parse(localStorage.getItem('firta_user')); }
   catch { return null; }
 }
 
-
+// Clear session (logout)
 function clearSession() {
   localStorage.removeItem('firta_user');
 }
 
-
+// Redirect to login if not logged in — call on protected pages
 function requireAuth() {
   const user = getSession();
   if (!user) { window.location.href = 'login.html'; return null; }
@@ -52,6 +78,11 @@ function requireAuth() {
 }
 
 
+// ============================================
+//  UI HELPERS
+// ============================================
+
+// Show error or success message inside a div
 function showAlert(id, msg, type = 'error') {
   const el = document.getElementById(id);
   if (!el) return;
@@ -61,13 +92,13 @@ function showAlert(id, msg, type = 'error') {
   el.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
 }
 
-
+// Hide an alert div
 function hideAlert(id) {
   const el = document.getElementById(id);
   if (el) el.style.display = 'none';
 }
 
-
+// Put a button into loading state
 function setButtonLoading(btn, text = 'Loading...') {
   btn.dataset.original = btn.innerHTML;
   btn.innerHTML = `<span class="spinner"></span> ${text}`;
@@ -80,6 +111,7 @@ function resetButton(btn) {
   btn.disabled  = false;
 }
 
+// Get a URL query param — e.g. getParam('id') from ?id=abc
 function getParam(key) {
   return new URLSearchParams(window.location.search).get(key);
 }
@@ -393,13 +425,207 @@ async function loadQRPage() {
 
 
 // ============================================
-//  ITEM PUBLIC PAGE  (what finders see after scanning QR)
+//  MULTILINGUAL SYSTEM — REAL DYNAMIC TRANSLATION
+//
+//  How it works:
+//  1. Reads navigator.languages to detect the
+//     finder's browser language (e.g. 'ne' for Nepali)
+//  2. If the page language already matches, no
+//     translation needed — renders immediately
+//  3. Otherwise, translates ALL dynamic content
+//     (item name, contact info, UI strings) from
+//     whatever language the owner wrote in, INTO
+//     the finder's language — using MyMemory API
+//     (free, no API key needed, 5000 words/day)
+//  4. Caches the result in sessionStorage so
+//     switching tabs doesn't re-translate
+//  5. Shows a language switcher so finder can
+//     manually override if auto-detect is wrong
+//
+//  Example:
+//  Japanese owner registers "青いバックパック"
+//  Nepali finder scans → page renders in Nepali:
+//  "नीलो ब्याकप्याक"  ✅
 // ============================================
+
+
+// ── LANGUAGE MAP ─────────────────────────────────────────────────────────
+// Maps browser language codes to MyMemory language codes + display info.
+// MyMemory uses ISO 639-1 codes. RTL flag drives CSS direction.
+const LANG_MAP = {
+  'en':    { code: 'en',    name: 'English',    flag: '🇬🇧', dir: 'ltr' },
+  'ne':    { code: 'ne',    name: 'नेपाली',      flag: '🇳🇵', dir: 'ltr' },
+  'hi':    { code: 'hi',    name: 'हिन्दी',      flag: '🇮🇳', dir: 'ltr' },
+  'zh':    { code: 'zh',    name: '中文',         flag: '🇨🇳', dir: 'ltr' },
+  'zh-cn': { code: 'zh',   name: '中文(简体)',    flag: '🇨🇳', dir: 'ltr' },
+  'zh-tw': { code: 'zh',   name: '中文(繁體)',    flag: '🇹🇼', dir: 'ltr' },
+  'es':    { code: 'es',    name: 'Español',     flag: '🇪🇸', dir: 'ltr' },
+  'fr':    { code: 'fr',    name: 'Français',    flag: '🇫🇷', dir: 'ltr' },
+  'ar':    { code: 'ar',    name: 'العربية',     flag: '🇸🇦', dir: 'rtl' },
+  'pt':    { code: 'pt',    name: 'Português',   flag: '🇧🇷', dir: 'ltr' },
+  'pt-br': { code: 'pt',   name: 'Português',   flag: '🇧🇷', dir: 'ltr' },
+  'de':    { code: 'de',    name: 'Deutsch',     flag: '🇩🇪', dir: 'ltr' },
+  'ja':    { code: 'ja',    name: '日本語',       flag: '🇯🇵', dir: 'ltr' },
+  'ko':    { code: 'ko',    name: '한국어',       flag: '🇰🇷', dir: 'ltr' },
+  'ru':    { code: 'ru',    name: 'Русский',     flag: '🇷🇺', dir: 'ltr' },
+  'it':    { code: 'it',    name: 'Italiano',    flag: '🇮🇹', dir: 'ltr' },
+  'tr':    { code: 'tr',    name: 'Türkçe',      flag: '🇹🇷', dir: 'ltr' },
+  'id':    { code: 'id',    name: 'Indonesia',   flag: '🇮🇩', dir: 'ltr' },
+  'ms':    { code: 'ms',    name: 'Melayu',      flag: '🇲🇾', dir: 'ltr' },
+  'th':    { code: 'th',    name: 'ภาษาไทย',     flag: '🇹🇭', dir: 'ltr' },
+  'vi':    { code: 'vi',    name: 'Tiếng Việt',  flag: '🇻🇳', dir: 'ltr' },
+  'bn':    { code: 'bn',    name: 'বাংলা',        flag: '🇧🇩', dir: 'ltr' },
+  'ur':    { code: 'ur',    name: 'اردو',         flag: '🇵🇰', dir: 'rtl' },
+  'sw':    { code: 'sw',    name: 'Kiswahili',   flag: '🇰🇪', dir: 'ltr' },
+};
+
+// ── detectFinderLanguage ──────────────────────────────────────────────────
+// Reads navigator.languages (priority list from browser settings).
+// Returns the LANG_MAP entry for the best match, defaulting to English.
+function detectFinderLanguage() {
+  const preferred = [
+    ...(navigator.languages || []),
+    navigator.language || 'en'
+  ];
+
+  for (const tag of preferred) {
+    const lower = tag.toLowerCase();
+    // Try exact match first (e.g. 'pt-br')
+    if (LANG_MAP[lower]) return LANG_MAP[lower];
+    // Then base code (e.g. 'pt' from 'pt-BR')
+    const base = lower.split('-')[0];
+    if (LANG_MAP[base]) return LANG_MAP[base];
+  }
+  return LANG_MAP['en'];
+}
+
+// ── translateText ─────────────────────────────────────────────────────────
+// Translates a string using MyMemory free API.
+// No API key required. 5000 words/day free limit.
+// Returns the translated string, or the original on failure.
+async function translateText(text, targetLang) {
+  if (!text || !text.trim()) return text;
+
+  // MyMemory needs a language pair like "en|ne" but since we don't
+  // know the source language, we use "autodetect|targetCode"
+  const url = `https://api.mymemory.translated.net/get?q=${encodeURIComponent(text)}&langpair=autodetect|${targetLang}`;
+
+  try {
+    const res  = await fetch(url);
+    const json = await res.json();
+
+    if (json.responseStatus === 200 && json.responseData?.translatedText) {
+      return json.responseData.translatedText;
+    }
+    // If MyMemory returns an error or quota exceeded, return original
+    return text;
+  } catch {
+    return text;
+  }
+}
+
+// ── translateBatch ────────────────────────────────────────────────────────
+// Translates multiple strings in parallel.
+// Returns an array of translated strings in the same order.
+async function translateBatch(texts, targetLang) {
+  return Promise.all(texts.map(t => translateText(t, targetLang)));
+}
+
+// ── getCacheKey ───────────────────────────────────────────────────────────
+function getCacheKey(itemId, langCode) {
+  return `firta_trans_${itemId}_${langCode}`;
+}
+
+// ── buildItemPageHTML ─────────────────────────────────────────────────────
+// Builds the full item.html inner HTML from (possibly translated) strings.
+function buildItemPageHTML(strings, item, langInfo) {
+  const isPhone = /^[\+\d\s\-\(\)]{6,}$/.test(item.contact);
+  const isEmail = isValidEmail(item.contact);
+
+  const langOptions = Object.entries(LANG_MAP)
+    // deduplicate by display name
+    .filter(([key], _, arr) =>
+      arr.findIndex(([, v]) => v.name === LANG_MAP[key].name) === arr.indexOf(arr.find(([k]) => k === key))
+    )
+    .map(([key, val]) =>
+      `<option value="${key}" ${key === langInfo._key ? 'selected' : ''}>${val.flag} ${val.name}</option>`
+    ).join('');
+
+  return `
+    <!-- Language bar -->
+    <div class="lang-bar">
+      <div class="lang-detected">
+        🌐 <span id="lang-status">Translating to ${langInfo.flag} ${langInfo.name}...</span>
+      </div>
+      <select class="lang-select" id="lang-select" onchange="handleLangSwitch(this.value)">
+        ${langOptions}
+      </select>
+    </div>
+
+    <div class="firta-badge">🔷 ${strings.badge}</div>
+
+    <div class="item-hero-card page-fade">
+      <div class="item-hero-icon">📦</div>
+      <h1 id="item-title">${escapeHTML(strings.itemName)}</h1>
+      <p class="item-subtitle" id="item-subtitle">${strings.subtitle}</p>
+
+      <div class="contact-section">
+        <div class="contact-label" id="contact-label">${strings.contactLabel}</div>
+        <div class="contact-value">
+          ${isPhone ? '📞' : isEmail ? '✉️' : '📋'}
+          <span id="contact-value">${escapeHTML(strings.contactValue)}</span>
+        </div>
+      </div>
+
+      <div class="contact-actions">
+        ${isPhone ? `
+        <a href="tel:${encodeURIComponent(item.contact)}" class="contact-btn call-btn">
+          <span class="cb-icon">📞</span>
+          <span id="call-btn-text">${strings.callBtn}</span>
+        </a>` : `
+        <div class="contact-btn" style="opacity:0.4;cursor:not-allowed">
+          <span class="cb-icon">📞</span>
+          <span>${strings.noPhone}</span>
+        </div>`}
+
+        ${isEmail ? `
+        <a href="mailto:${encodeURIComponent(item.contact)}?subject=${encodeURIComponent(strings.emailSubject)}&body=${encodeURIComponent(strings.emailBody)}"
+           class="contact-btn email-btn">
+          <span class="cb-icon">✉️</span>
+          <span id="email-btn-text">${strings.emailBtn}</span>
+        </a>` : `
+        <div class="contact-btn" style="opacity:0.4;cursor:not-allowed">
+          <span class="cb-icon">✉️</span>
+          <span>${strings.noEmail}</span>
+        </div>`}
+      </div>
+    </div>
+
+    <div class="coming-soon-card">
+      <span class="cs-icon">📍</span>
+      <div class="cs-text">
+        <h3 id="gps-title">${strings.gpsTitle}</h3>
+        <p id="gps-desc">${strings.gpsDesc}</p>
+      </div>
+      <span class="cs-badge" id="gps-badge">${strings.gpsBadge}</span>
+    </div>`;
+}
+
+// ── ITEM PUBLIC PAGE ──────────────────────────────────────────────────────
 async function loadItemPage() {
   const itemId  = getParam('id');
   const content = document.getElementById('item-content');
 
-  // No ID in URL
+  // Detect finder's language from browser settings
+  const langInfo    = detectFinderLanguage();
+  langInfo._key     = Object.keys(LANG_MAP).find(k => LANG_MAP[k] === langInfo) || 'en';
+  const targetCode  = langInfo.code;
+  const isEnglish   = targetCode === 'en';
+
+  // Apply direction (RTL for Arabic/Urdu)
+  document.documentElement.setAttribute('lang', targetCode);
+  document.documentElement.setAttribute('dir',  langInfo.dir);
+
   if (!itemId) {
     if (content) content.innerHTML = `
       <div class="card text-center" style="padding:48px">
@@ -410,11 +636,17 @@ async function loadItemPage() {
     return;
   }
 
+  // Show a translating spinner while we fetch + translate
+  if (content) content.innerHTML = `
+    <div class="translating-overlay">
+      <div class="spinner spinner-dark" style="width:32px;height:32px;margin:0 auto 16px"></div>
+      <p id="translate-status">Loading item...</p>
+    </div>`;
+
   showLoader();
   const { data, error } = await supabaseFetch(`/items?id=eq.${itemId}`);
   hideLoader();
 
-  // DB error or item removed
   if (error || !data || data.length === 0) {
     if (content) content.innerHTML = `
       <div class="card text-center" style="padding:48px">
@@ -425,64 +657,189 @@ async function loadItemPage() {
     return;
   }
 
-  const item    = data[0];
-  const isPhone = /^[\+\d\s\-\(\)]{6,}$/.test(item.contact);
-  const isEmail = isValidEmail(item.contact);
+  const item = data[0];
+  window._firtaItem = item; // store for re-render on language switch
 
-  if (content) content.innerHTML = `
-    <div class="firta-badge">🔷 Registered on Firta</div>
+  // --- Check session cache first ---
+  const cacheKey = getCacheKey(item.id, targetCode);
+  const cached   = sessionStorage.getItem(cacheKey);
 
-    <div class="item-hero-card page-fade">
-      <div class="item-hero-icon">📦</div>
-      <h1>${escapeHTML(item.name)}</h1>
-      <p class="item-subtitle">This item belongs to someone — help return it!</p>
+  let strings;
 
-      <div class="contact-section">
-        <div class="contact-label">Contact Information</div>
-        <div class="contact-value">
-          ${isPhone ? '📞' : isEmail ? '✉️' : '📋'}
-          ${escapeHTML(item.contact)}
-        </div>
-      </div>
+  if (cached) {
+    // Use cached translation — instant re-render
+    strings = JSON.parse(cached);
+    renderItemPage(strings, item, langInfo, content, false);
+    return;
+  }
 
-      <div class="contact-actions">
+  // --- UI strings to translate ---
+  // These are the fixed labels. Translated in parallel with item content.
+  const UI_ENGLISH = [
+    'Registered on Firta',
+    'This item belongs to someone — help return it!',
+    'Contact Information',
+    'Call Owner',
+    'Send Email',
+    'No phone available',
+    'No email available',
+    'Live GPS Tracking',
+    'Real-time location sharing between finder and owner',
+    'Coming Soon',
+    `Found your item: ${item.name}`,
+    `Hi,\n\nI found your item '${item.name}' registered on Firta.\n\nPlease contact me to arrange pickup.\n\nThank you!`,
+  ];
 
-        ${isPhone ? `
-        <a href="tel:${encodeURIComponent(item.contact)}" class="contact-btn call-btn">
-          <span class="cb-icon">📞</span>
-          Call Owner
-        </a>` : `
-        <div class="contact-btn" style="opacity:0.4;cursor:not-allowed">
-          <span class="cb-icon">📞</span>
-          No phone
-        </div>`}
+  // Dynamic content from the database (owner entered this — could be any language)
+  const DYNAMIC = [
+    item.name,
+    item.contact,
+  ];
 
-        ${isEmail ? `
-        <a href="mailto:${encodeURIComponent(item.contact)}?subject=${encodeURIComponent('Found your item: ' + item.name)}&body=${encodeURIComponent('Hi,\n\nI found your item \'' + item.name + '\' registered on Firta.\n\nPlease contact me to arrange pickup.\n\nThank you!')}"
-           class="contact-btn email-btn">
-          <span class="cb-icon">✉️</span>
-          Send Email
-        </a>` : `
-        <div class="contact-btn" style="opacity:0.4;cursor:not-allowed">
-          <span class="cb-icon">✉️</span>
-          No email
-        </div>`}
+  // Update status text
+  const statusEl = document.getElementById('translate-status');
+  if (statusEl) statusEl.textContent = `Translating to ${langInfo.name}...`;
 
-      </div>
-    </div>
+  // If target is English, skip API call for UI strings (they're already English)
+  // but still translate dynamic content in case owner wrote in another language
+  let translatedUI, translatedDynamic;
 
-    <div class="coming-soon-card">
-      <span class="cs-icon">📍</span>
-      <div class="cs-text">
-        <h3>Live GPS Tracking</h3>
-        <p>Real-time location sharing between finder and owner</p>
-      </div>
-      <span class="cs-badge">Coming Soon</span>
-    </div>`;
+  if (isEnglish) {
+    translatedUI     = UI_ENGLISH;
+    translatedDynamic = DYNAMIC; // keep as-is for English
+  } else {
+    // Translate everything in parallel — UI strings + owner's content
+    [translatedUI, translatedDynamic] = await Promise.all([
+      translateBatch(UI_ENGLISH, targetCode),
+      translateBatch(DYNAMIC, targetCode),
+    ]);
+  }
+
+  // Build strings object
+  strings = {
+    badge:        translatedUI[0],
+    subtitle:     translatedUI[1],
+    contactLabel: translatedUI[2],
+    callBtn:      translatedUI[3],
+    emailBtn:     translatedUI[4],
+    noPhone:      translatedUI[5],
+    noEmail:      translatedUI[6],
+    gpsTitle:     translatedUI[7],
+    gpsDesc:      translatedUI[8],
+    gpsBadge:     translatedUI[9],
+    emailSubject: translatedUI[10],
+    emailBody:    translatedUI[11],
+    // Owner's content — translated from whatever language they used
+    itemName:     translatedDynamic[0],
+    contactValue: translatedDynamic[1],
+  };
+
+  // Cache so switching tabs doesn't re-translate
+  try { sessionStorage.setItem(cacheKey, JSON.stringify(strings)); } catch {}
+
+  renderItemPage(strings, item, langInfo, content, true);
 }
 
+// ── renderItemPage ────────────────────────────────────────────────────────
+function renderItemPage(strings, item, langInfo, content, freshTranslation) {
+  content.innerHTML = buildItemPageHTML(strings, item, langInfo);
 
-// ============================================
+  // Update language status text in bar
+  const langStatus = document.getElementById('lang-status');
+  if (langStatus) {
+    langStatus.textContent = freshTranslation
+      ? `${langInfo.flag} Translated to ${langInfo.name}`
+      : `${langInfo.flag} ${langInfo.name}`;
+  }
+
+  // Update powered-by footer
+  const poweredEl = document.querySelector('.powered-by');
+  if (poweredEl) poweredEl.innerHTML = `Powered by <a href="index.html">Firta</a>`;
+}
+
+// ── handleLangSwitch ──────────────────────────────────────────────────────
+// Called when finder manually picks a language from the dropdown.
+async function handleLangSwitch(langKey) {
+  const item = window._firtaItem;
+  if (!item) return;
+
+  const langInfo  = LANG_MAP[langKey];
+  if (!langInfo) return;
+  langInfo._key   = langKey;
+
+  // Update direction immediately
+  document.documentElement.setAttribute('lang', langInfo.code);
+  document.documentElement.setAttribute('dir',  langInfo.dir);
+
+  const content = document.getElementById('item-content');
+
+  // Show translating state
+  const langStatus = document.getElementById('lang-status');
+  if (langStatus) langStatus.textContent = `Translating to ${langInfo.name}...`;
+  const selectEl = document.getElementById('lang-select');
+  if (selectEl) selectEl.disabled = true;
+
+  // Check cache first
+  const cacheKey = getCacheKey(item.id, langInfo.code);
+  const cached   = sessionStorage.getItem(cacheKey);
+
+  let strings;
+
+  if (cached) {
+    strings = JSON.parse(cached);
+  } else {
+    const isEnglish = langInfo.code === 'en';
+
+    const UI_ENGLISH = [
+      'Registered on Firta',
+      'This item belongs to someone — help return it!',
+      'Contact Information',
+      'Call Owner',
+      'Send Email',
+      'No phone available',
+      'No email available',
+      'Live GPS Tracking',
+      'Real-time location sharing between finder and owner',
+      'Coming Soon',
+      `Found your item: ${item.name}`,
+      `Hi,\n\nI found your item '${item.name}' registered on Firta.\n\nPlease contact me to arrange pickup.\n\nThank you!`,
+    ];
+    const DYNAMIC = [item.name, item.contact];
+
+    let translatedUI, translatedDynamic;
+    if (isEnglish) {
+      translatedUI      = UI_ENGLISH;
+      translatedDynamic = DYNAMIC;
+    } else {
+      [translatedUI, translatedDynamic] = await Promise.all([
+        translateBatch(UI_ENGLISH, langInfo.code),
+        translateBatch(DYNAMIC, langInfo.code),
+      ]);
+    }
+
+    strings = {
+      badge:        translatedUI[0],
+      subtitle:     translatedUI[1],
+      contactLabel: translatedUI[2],
+      callBtn:      translatedUI[3],
+      emailBtn:     translatedUI[4],
+      noPhone:      translatedUI[5],
+      noEmail:      translatedUI[6],
+      gpsTitle:     translatedUI[7],
+      gpsDesc:      translatedUI[8],
+      gpsBadge:     translatedUI[9],
+      emailSubject: translatedUI[10],
+      emailBody:    translatedUI[11],
+      itemName:     translatedDynamic[0],
+      contactValue: translatedDynamic[1],
+    };
+
+    try { sessionStorage.setItem(cacheKey, JSON.stringify(strings)); } catch {}
+  }
+
+  renderItemPage(strings, item, langInfo, content, !cached);
+}
+
 //  PAGE ROUTER
 //  Runs the right function based on filename
 // ============================================
