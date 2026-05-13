@@ -1,65 +1,110 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Sign In – Firta</title>
-  <link rel="stylesheet" href="style.css" />
-</head>
-<body class="auth-page">
-
-  <div class="auth-card">
-    
-    <div class="auth-logo">firta<span style="color:var(--dark)">.</span></div>
-
-    <h1 class="auth-title">Welcome back</h1>
-    <p class="auth-subtitle">Sign in to manage your items and QR codes.</p>
-
-    
-    <div id="login-alert" class="alert" style="display:none"></div>
-
-    
-    <form id="login-form" novalidate>
-
-      <div class="form-group">
-        <label for="email">Email Address</label>
-        <input
-          type="email"
-          id="email"
-          placeholder="you@example.com"
-          autocomplete="email"
-          required
-        />
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sign In – Firta | Secure Your Valuables</title>
+    <link rel="stylesheet" href="style.css" />
+    <!-- Added for trust and clarity -->
+    <meta
+      name="description"
+      content="Securely manage your items and privacy with Nepal's leading QR recovery system."
+    />
+  </head>
+  <body class="auth-page">
+    <div class="auth-card">
+      <!-- Branding with Innovation Context [1, 2] -->
+      <div class="auth-logo">
+        firta<span style="color: var(--dark)">.</span>
       </div>
 
-      <div class="form-group">
-        <label for="password">Password</label>
-        <input
-          type="password"
-          id="password"
-          placeholder="Your password"
-          autocomplete="current-password"
-          required
-        />
+      <h1 class="auth-title">Secure Your Belongings</h1>
+      <p class="auth-subtitle">
+        Log in to manage your digital gatekeeper and track scans in real-time
+        [3, 4].
+      </p>
+
+      <div id="login-alert" class="alert" style="display: none"></div>
+
+      <form id="login-form" novalidate>
+        <div class="form-group">
+          <label for="email">Email Address</label>
+          <input
+            type="email"
+            id="email"
+            placeholder="you@example.com"
+            autocomplete="email"
+            required
+            aria-required="true"
+          />
+        </div>
+
+        <div class="form-group">
+          <div style="display: flex; justify-content: space-between">
+            <label for="password">Password</label>
+            <a
+              href="forgot-password.html"
+              class="form-link"
+              style="font-size: 0.85rem"
+              >Forgot?</a
+            >
+          </div>
+          <input
+            type="password"
+            id="password"
+            placeholder="Your password"
+            autocomplete="current-password"
+            required
+            aria-required="true"
+          />
+        </div>
+
+        <button
+          type="submit"
+          class="btn btn-primary btn-full btn-lg"
+          id="login-btn"
+        >
+          Access Your Dashboard
+        </button>
+      </form>
+
+      <!-- Added Finder Quick-Action to remove barriers [5, 6] -->
+      <div
+        class="finder-cta"
+        style="
+          margin-top: 15px;
+          padding: 10px;
+          background: var(--gray-100);
+          border-radius: 8px;
+          text-align: center;
+        "
+      >
+        <p style="font-size: 0.9rem; margin-bottom: 5px">
+          Found someone's item?
+        </p>
+        <a href="report.html" style="font-weight: bold; color: var(--primary)"
+          >Quick Report (No Login Required) →</a
+        >
       </div>
 
-      <button type="submit" class="btn btn-primary btn-full btn-lg" id="login-btn">
-        Sign In
-      </button>
+      <div class="divider">or</div>
 
-    </form>
+      <a href="signup.html" class="btn btn-ghost btn-full">
+        Join the Firta Community
+      </a>
 
-    <div class="divider">or</div>
-
-    <a href="signup.html" class="btn btn-ghost btn-full">
-      Create a new account
-    </a>
-
-    <div class="auth-footer" style="margin-top:20px">
-      <a href="index.html" style="color:var(--gray-500)">← Back to home</a>
+      <div class="auth-footer" style="margin-top: 20px; text-align: center">
+        <p
+          style="font-size: 0.8rem; color: var(--gray-500); margin-bottom: 10px"
+        >
+          🔒 <strong>Privacy First:</strong> Your contact info is never shown to
+          strangers without your consent [7-9].
+        </p>
+        <a href="index.html" style="color: var(--gray-500)">← Back to home</a>
+      </div>
     </div>
-  </div>
 
-  <script src="app.js"></script>
-</body>
+    <!-- Security Script (Placeholder for JS verification) [10, 11] -->
+    <script src="app.js"></script>
+  </body>
 </html>
