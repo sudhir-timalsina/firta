@@ -6,13 +6,7 @@ const SUPABASE_ANON_KEY = 'sb_publishable_yOk-XtOJtwWXfdGvfF9ZoA_KOGz_p-R';
 //  SUPABASE FETCH WRAPPER
 // ============================================
 
-/**
- * Makes a request to the Supabase REST API
- * @param {string} endpoint  e.g. '/users' or '/items?id=eq.123'
- * @param {string} method    GET | POST | PATCH | DELETE
- * @param {object} body      request body for POST / PATCH
- * @returns {Promise<{data, error}>}
- */
+
 async function supabaseFetch(endpoint, method = 'GET', body = null) {
   try {
     const headers = {
