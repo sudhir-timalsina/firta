@@ -1,4 +1,11 @@
+/* ============================================
+   FIRTA – Smart Lost & Found System
+   style.css – Global Styles
+   ============================================ */
+
 @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap');
+
+/* ---------- CSS Variables ---------- */
 :root {
   --primary: #2563EB;
   --primary-dark: #1D4ED8;
@@ -25,6 +32,7 @@
   --transition: all 0.22s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
+/* ---------- Reset & Base ---------- */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 html { scroll-behavior: smooth; font-size: 16px; }
@@ -50,6 +58,7 @@ a:hover { color: var(--primary-dark); }
 
 img { max-width: 100%; display: block; }
 
+/* ---------- Utility Classes ---------- */
 .container {
   max-width: 1100px;
   margin: 0 auto;
@@ -63,6 +72,7 @@ img { max-width: 100%; display: block; }
 .mt-3 { margin-top: 24px; }
 .mt-4 { margin-top: 32px; }
 
+/* ---------- Buttons ---------- */
 .btn {
   display: inline-flex;
   align-items: center;
@@ -137,6 +147,8 @@ img { max-width: 100%; display: block; }
   cursor: not-allowed;
   transform: none !important;
 }
+
+/* ---------- Navbar ---------- */
 .navbar {
   position: sticky;
   top: 0;
@@ -180,6 +192,7 @@ img { max-width: 100%; display: block; }
 .nav-center a:hover { color: var(--primary); }
 .nav-links { display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
 
+/* Mobile hamburger */
 .nav-toggle {
   display: none;
   flex-direction: column;
@@ -202,6 +215,7 @@ img { max-width: 100%; display: block; }
 .nav-toggle.active span:nth-child(2) { opacity: 0; }
 .nav-toggle.active span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
 
+/* Mobile nav dropdown */
 .nav-mobile {
   display: none;
   flex-direction: column;
@@ -218,6 +232,7 @@ img { max-width: 100%; display: block; }
   text-align: center;
 }
 
+/* ---------- Cards ---------- */
 .card {
   background: var(--white);
   border-radius: var(--radius-lg);
@@ -228,6 +243,7 @@ img { max-width: 100%; display: block; }
 }
 .card:hover { box-shadow: var(--shadow-lg); }
 
+/* ---------- Form Elements ---------- */
 .form-group {
   margin-bottom: 20px;
 }
@@ -261,6 +277,7 @@ img { max-width: 100%; display: block; }
 }
 .form-group input::placeholder { color: var(--gray-300); }
 
+/* ---------- Alert / Toast ---------- */
 .alert {
   padding: 13px 18px;
   border-radius: var(--radius-sm);
@@ -272,6 +289,7 @@ img { max-width: 100%; display: block; }
 .alert-success { background: #F0FDF4; border-color: var(--success); color: #166534; }
 .alert-info { background: var(--primary-light); border-color: var(--primary); color: var(--primary-dark); }
 
+/* ---------- Badge ---------- */
 .badge {
   display: inline-flex;
   align-items: center;
@@ -284,7 +302,7 @@ img { max-width: 100%; display: block; }
 .badge-lost { background: #FEE2E2; color: #991B1B; }
 .badge-found { background: #DBEAFE; color: #1E40AF; }
 
-
+/* ---------- Loading Spinner ---------- */
 .spinner {
   display: inline-block;
   width: 18px;
@@ -301,6 +319,7 @@ img { max-width: 100%; display: block; }
   border-top-color: var(--primary);
 }
 
+/* ---------- Page Fade-in ---------- */
 .page-fade {
   animation: fadeUp 0.4s ease both;
 }
@@ -309,6 +328,11 @@ img { max-width: 100%; display: block; }
   to   { opacity: 1; transform: translateY(0); }
 }
 
+/* ============================================
+   INDEX / LANDING PAGE
+   ============================================ */
+
+/* --- Hero --- */
 .hero {
   padding: 110px 24px 90px;
   text-align: center;
@@ -365,6 +389,7 @@ img { max-width: 100%; display: block; }
 }
 .hero-cta { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
 
+/* Hero stats row */
 .hero-stats {
   display: flex;
   align-items: center;
@@ -408,6 +433,7 @@ img { max-width: 100%; display: block; }
   flex-shrink: 0;
 }
 
+/* --- Trust bar --- */
 .trust-bar {
   padding: 28px 24px;
   background: var(--white);
@@ -444,6 +470,7 @@ img { max-width: 100%; display: block; }
   color: var(--primary-dark);
 }
 
+/* --- Steps section --- */
 .steps-section {
   padding: 88px 24px;
   background: var(--gray-50);
@@ -524,6 +551,7 @@ img { max-width: 100%; display: block; }
   line-height: 1.65;
 }
 
+/* --- Features section --- */
 .features-section {
   padding: 88px 24px;
   background: var(--white);
@@ -610,6 +638,7 @@ img { max-width: 100%; display: block; }
   letter-spacing: 0.5px;
 }
 
+/* --- QR preview section --- */
 .qr-preview-section {
   padding: 88px 24px;
   background: var(--gray-50);
@@ -637,6 +666,7 @@ img { max-width: 100%; display: block; }
   font-weight: 500;
 }
 
+/* Phone mockup */
 .qr-preview-mockup {
   display: flex;
   justify-content: center;
@@ -746,6 +776,7 @@ img { max-width: 100%; display: block; }
   text-align: center;
 }
 
+/* --- Use cases --- */
 .usecases-section {
   padding: 88px 24px;
   background: var(--white);
@@ -789,6 +820,7 @@ img { max-width: 100%; display: block; }
   line-height: 1.65;
 }
 
+/* --- FAQ --- */
 .faq-section {
   padding: 88px 24px;
   background: var(--gray-50);
@@ -821,6 +853,8 @@ img { max-width: 100%; display: block; }
   color: var(--gray-500);
   line-height: 1.7;
 }
+
+/* --- CTA banner --- */
 .cta-section {
   padding: 80px 24px;
   background: var(--white);
@@ -883,6 +917,8 @@ img { max-width: 100%; display: block; }
   background: rgba(255,255,255,0.25);
   color: var(--white);
 }
+
+/* --- Footer rich --- */
 .footer-rich {
   background: var(--dark);
   padding: 60px 24px 32px;
@@ -946,6 +982,10 @@ img { max-width: 100%; display: block; }
   color: var(--gray-500);
   font-size: 14px;
 }
+
+/* ============================================
+   AUTH PAGES (Login / Signup)
+   ============================================ */
 .auth-page {
   min-height: 100vh;
   display: flex;
@@ -1007,6 +1047,9 @@ img { max-width: 100%; display: block; }
   background: var(--gray-100);
 }
 
+/* ============================================
+   DASHBOARD
+   ============================================ */
 .dashboard-layout {
   min-height: 100vh;
   background: var(--gray-50);
@@ -1159,6 +1202,9 @@ img { max-width: 100%; display: block; }
 }
 .empty-state p { font-size: 14px; margin-bottom: 24px; }
 
+/* ============================================
+   ADD ITEM PAGE
+   ============================================ */
 .add-item-page {
   min-height: 100vh;
   background: var(--gray-50);
@@ -1211,6 +1257,9 @@ img { max-width: 100%; display: block; }
 }
 .info-tip .icon { flex-shrink: 0; font-size: 16px; margin-top: 1px; }
 
+/* ============================================
+   QR PAGE
+   ============================================ */
 .qr-page {
   min-height: 100vh;
   background: var(--gray-50);
@@ -1278,6 +1327,9 @@ img { max-width: 100%; display: block; }
 }
 .qr-actions { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; margin-top: 24px; }
 
+/* ============================================
+   ITEM PUBLIC PAGE
+   ============================================ */
 .item-page {
   min-height: 100vh;
   background: var(--gray-50);
@@ -1411,6 +1463,10 @@ img { max-width: 100%; display: block; }
   font-size: 13px;
 }
 .powered-by a { color: var(--primary); font-weight: 600; }
+
+/* ============================================
+   LOADING OVERLAY
+   ============================================ */
 #loading-overlay {
   position: fixed; inset: 0;
   background: rgba(255,255,255,0.8);
@@ -1446,6 +1502,10 @@ img { max-width: 100%; display: block; }
   0%, 80%, 100% { transform: scale(0.7); opacity: 0.4; }
   40% { transform: scale(1); opacity: 1; }
 }
+
+/* ============================================
+   RESPONSIVE
+   ============================================ */
 @media (max-width: 900px) {
   .features-grid { grid-template-columns: repeat(2, 1fr); }
   .feature-card--large { grid-column: span 2; }
@@ -1488,4 +1548,96 @@ img { max-width: 100%; display: block; }
   .hero-stat-divider { display: none; }
   .hero-stat { padding: 8px 0; }
   .hero-stats { flex-direction: column; gap: 4px; }
+}
+
+
+
+/* ============================================
+   DYNAMIC TRANSLATION SYSTEM
+   Styles for language bar, translating state,
+   language switcher dropdown, and RTL support
+   ============================================ */
+
+/* --- Translating spinner overlay --- */
+.translating-overlay {
+  text-align: center;
+  padding: 80px 24px;
+  color: var(--gray-500);
+}
+.translating-overlay p {
+  font-size: 14px;
+  margin-top: 8px;
+  color: var(--gray-500);
+}
+
+/* --- Language bar at top of item page --- */
+.lang-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  background: var(--white);
+  border: 1px solid var(--gray-100);
+  border-radius: var(--radius);
+  padding: 11px 16px;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+  box-shadow: var(--shadow-sm);
+}
+.lang-detected {
+  font-size: 13px;
+  color: var(--gray-500);
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex: 1;
+}
+#lang-status {
+  color: var(--primary);
+  font-weight: 600;
+}
+
+/* --- Language dropdown --- */
+.lang-select {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--primary);
+  background: var(--primary-light);
+  border: 1.5px solid var(--primary-light);
+  border-radius: var(--radius-sm);
+  padding: 7px 12px;
+  cursor: pointer;
+  outline: none;
+  transition: var(--transition);
+  max-width: 190px;
+  flex-shrink: 0;
+}
+.lang-select:hover,
+.lang-select:focus {
+  border-color: var(--primary);
+  background: var(--white);
+}
+.lang-select:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+/* --- RTL layout support (Arabic, Urdu) --- */
+[dir="rtl"] .item-main        { direction: rtl; }
+[dir="rtl"] .item-hero-card   { text-align: right; }
+[dir="rtl"] .contact-value    { flex-direction: row-reverse; justify-content: flex-end; }
+[dir="rtl"] .contact-actions  { direction: rtl; }
+[dir="rtl"] .contact-btn      { flex-direction: row-reverse; }
+[dir="rtl"] .lang-bar         { flex-direction: row-reverse; }
+[dir="rtl"] .coming-soon-card { flex-direction: row-reverse; }
+[dir="rtl"] .cs-badge         { margin-left: 0; margin-right: auto; }
+[dir="rtl"] .firta-badge      { justify-content: flex-end; }
+[dir="rtl"] .powered-by       { direction: rtl; }
+
+/* --- Responsive --- */
+@media (max-width: 480px) {
+  .lang-bar    { flex-direction: column; align-items: flex-start; gap: 8px; }
+  .lang-select { max-width: 100%; width: 100%; }
 }
