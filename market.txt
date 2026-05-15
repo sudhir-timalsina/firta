@@ -1,4 +1,4 @@
-list of competitors:
+list of competitors:-
 1. Kataho
 
 Kataho is a Nepal-based lost-and-found platform that allows users to post details of lost or found items through a web or mobile interface. The system depends entirely on user-generated listings, where individuals either report a missing item or browse existing posts to find matches. It has been active for approximately four to five years, based on its digital presence.
