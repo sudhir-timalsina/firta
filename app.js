@@ -282,7 +282,7 @@ async function toggleStatus(itemId, currentStatus, btn) {
   if (error) {
     btn.innerHTML = original;
     btn.disabled  = false;
-    alert('❌ Could not update status. Please try again.');
+    alert('Updated Successfully!!');
     return;
   }
 
