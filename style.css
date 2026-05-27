@@ -1,11 +1,5 @@
-/* ============================================
-   FIRTA – Smart Lost & Found System
-   style.css – Global Styles
-   ============================================ */
-
 @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap');
 
-/* ---------- CSS Variables ---------- */
 :root {
   --primary: #2563EB;
   --primary-dark: #1D4ED8;
@@ -1550,6 +1544,127 @@ img { max-width: 100%; display: block; }
   .hero-stats { flex-direction: column; gap: 4px; }
 }
 
+
+
+/* ============================================
+   STATUS SYSTEM — Lost / Safe
+   Dashboard cards + item.html safe state
+   ============================================ */
+
+/* --- Dashboard: status info banner --- */
+.status-info-banner {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  background: var(--primary-light);
+  border: 1px solid rgba(37,99,235,0.18);
+  border-radius: var(--radius);
+  padding: 16px 20px;
+  margin-bottom: 28px;
+  font-size: 13.5px;
+  color: var(--gray-700);
+  line-height: 1.65;
+}
+.status-info-icon { font-size: 18px; flex-shrink: 0; margin-top: 1px; }
+.status-info-text strong { color: var(--dark); }
+
+.tag-safe {
+  display: inline-flex;
+  align-items: center;
+  background: #D1FAE5;
+  color: #065F46;
+  padding: 1px 8px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 600;
+}
+.tag-lost {
+  display: inline-flex;
+  align-items: center;
+  background: #FEE2E2;
+  color: #991B1B;
+  padding: 1px 8px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+/* --- Item card: lost highlight --- */
+.item-card-lost {
+  border-color: #FECACA !important;
+  background: #FFFAFA;
+}
+
+/* --- Item card: status strip --- */
+.item-status-strip {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  border-radius: var(--radius-sm);
+  padding: 9px 13px;
+  font-size: 12.5px;
+  font-weight: 500;
+  margin-bottom: 12px;
+}
+.strip-lost {
+  background: #FEF2F2;
+  border: 1px solid #FECACA;
+  color: #991B1B;
+}
+.strip-safe {
+  background: #F0FDF4;
+  border: 1px solid #BBF7D0;
+  color: #166534;
+}
+
+/* --- item.html: safe state --- */
+.item-safe-icon {
+  width: 64px; height: 64px;
+  background: #D1FAE5;
+  border-radius: var(--radius);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 30px;
+  margin-bottom: 20px;
+}
+.safe-status-box {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  background: #F0FDF4;
+  border: 1px solid #BBF7D0;
+  border-radius: var(--radius);
+  padding: 20px;
+  margin-bottom: 20px;
+}
+.safe-status-icon { font-size: 22px; flex-shrink: 0; line-height: 1; margin-top: 2px; }
+.safe-status-text strong {
+  display: block;
+  font-size: 15px;
+  color: var(--dark);
+  margin-bottom: 6px;
+}
+.safe-status-text p {
+  font-size: 13.5px;
+  color: var(--gray-500);
+  line-height: 1.65;
+}
+.finder-tip {
+  background: var(--gray-50);
+  border: 1px solid var(--gray-100);
+  border-radius: var(--radius);
+  padding: 18px 20px;
+}
+.finder-tip-title {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--dark);
+  margin-bottom: 8px;
+}
+.finder-tip p {
+  font-size: 13.5px;
+  color: var(--gray-500);
+  line-height: 1.65;
+}
 
 
 /* ============================================
