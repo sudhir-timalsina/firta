@@ -1,9 +1,6 @@
 const SUPABASE_URL = 'https://zjbgwmildygmyvderadf.supabase.co';
 const SUPABASE_ANON_KEY = 'sb_publishable_yOk-XtOJtwWXfdGvfF9ZoA_KOGz_p-R';
 
-// ============================================
-//  SUPABASE FETCH WRAPPER
-// ============================================
 async function supabaseFetch(endpoint, method = 'GET', body = null) {
   try {
     const headers = {
@@ -27,10 +24,6 @@ async function supabaseFetch(endpoint, method = 'GET', body = null) {
   }
 }
 
-
-// ============================================
-//  SESSION HELPERS
-// ============================================
 function setSession(user)  { localStorage.setItem('firta_user', JSON.stringify(user)); }
 function clearSession()    { localStorage.removeItem('firta_user'); }
 function getSession() {
@@ -43,10 +36,6 @@ function requireAuth() {
   return user;
 }
 
-
-// ============================================
-//  UI HELPERS
-// ============================================
 function showAlert(id, msg, type = 'error') {
   const el = document.getElementById(id);
   if (!el) return;
@@ -91,10 +80,6 @@ function escapeHTML(str) {
     .replace(/"/g,  '&quot;');
 }
 
-
-// ============================================
-//  SIGNUP
-// ============================================
 async function handleSignup(e) {
   e.preventDefault();
   hideAlert('signup-alert');
@@ -140,10 +125,6 @@ async function handleSignup(e) {
   setTimeout(() => window.location.href = 'dashboard.html', 1200);
 }
 
-
-// ============================================
-//  LOGIN
-// ============================================
 async function handleLogin(e) {
   e.preventDefault();
   hideAlert('login-alert');
@@ -173,10 +154,6 @@ async function handleLogin(e) {
   setTimeout(() => window.location.href = 'dashboard.html', 1000);
 }
 
-
-// ============================================
-//  DASHBOARD
-// ============================================
 async function loadDashboard() {
   const user = requireAuth();
   if (!user) return;
@@ -280,7 +257,6 @@ function itemCardHTML(item) {
       </div>
     </div>`;
 }
-
 // ── toggleStatus ──────────────────────────────────────────────────────────
 // Called when owner clicks Mark Lost / Mark Found button
 async function toggleStatus(itemId, currentStatus, btn) {
