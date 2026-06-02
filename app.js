@@ -736,6 +736,110 @@ async function handleLangSwitch(langKey) {
 
 
 // ============================================
+//  QR PAGE — AUTO TRANSLATION
+//
+//  Runs after loadQRPage() renders the QR card.
+//  Detects the owner's browser language via navigator.language
+//  (same detectFinderLanguage() used on item.html) and
+//  translates every element that has a [data-i18n] attribute.
+//
+//  Flow:
+//    1. detectFinderLanguage()  → get langInfo (code, name, flag)
+//    2. If English → nothing to do, return early
+//    3. translateBatch()        → translate all UI strings in one go
+//    4. Walk DOM, match data-i18n keys → swap textContent
+//    5. Show a small "🌐 Translated to <Lang>" badge on the page
+//    6. Cache result in sessionStorage so re-visits are instant
+// ============================================
+
+// English source strings for the QR page.
+// Keys match the data-i18n attribute values in qr.html exactly.
+const QR_UI_STRINGS = {
+  successTitle: 'Item registered successfully!',
+  successDesc:  'Your QR code is ready. Print it and attach to your item.',
+  qrBranding:   'Scan to return via Firta',
+  downloadBtn:  'Download QR',
+  nextTitle:    '📋 What to do next',
+  step1Title:   'Download the QR code',
+  step1Desc:    'Click "Download QR" above to save the image to your device.',
+  step2Title:   'Print and attach',
+  step2Desc:    'Print the QR as a sticker or tag. Attach it to your bag, keys, laptop, etc.',
+  step3Title:   "You're protected",
+  step3Desc:    'If anyone finds your item, scanning the QR will show them how to contact you.',
+};
+
+/**
+ * translateQRPage()
+ *
+ * Called automatically after the QR page loads.
+ * Translates all [data-i18n] elements into the owner's browser language.
+ * Falls back silently to the original English text on any error.
+ */
+async function translateQRPage() {
+  // ── 1. Detect browser language (reuses the same helper as item.html) ──
+  const langInfo = detectFinderLanguage();
+
+  // ── 2. English is the default — no translation needed ─────────────────
+  if (langInfo.code === 'en') return;
+
+  // ── 3. Check sessionStorage cache to avoid repeat API calls ───────────
+  const cacheKey    = `firta_qr_ui_${langInfo.code}`;
+  let translatedMap = {};
+
+  const cached = sessionStorage.getItem(cacheKey);
+  if (cached) {
+    // Cache hit — parse and skip the API call
+    translatedMap = JSON.parse(cached);
+  } else {
+    // Cache miss — translate all strings in a single batch request
+    const keys   = Object.keys(QR_UI_STRINGS);
+    const values = Object.values(QR_UI_STRINGS);
+
+    try {
+      const results = await translateBatch(values, langInfo.code);
+
+      // Rebuild the { key: translatedText } map
+      keys.forEach((k, i) => { translatedMap[k] = results[i]; });
+
+      // Save to sessionStorage for this session
+      try { sessionStorage.setItem(cacheKey, JSON.stringify(translatedMap)); } catch {}
+    } catch {
+      // Translation API failed — leave page in English, return silently
+      return;
+    }
+  }
+
+  // ── 4. Walk all [data-i18n] elements and swap their text ──────────────
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.getAttribute('data-i18n');
+    if (translatedMap[key]) {
+      el.textContent = translatedMap[key];
+    }
+  });
+
+  // ── 5. Show a subtle "Translated to <Language>" badge ─────────────────
+  // Insert it just before the success banner so it's immediately visible
+  const banner = document.querySelector('.qr-success-banner');
+  if (banner && !document.getElementById('qr-lang-badge')) {
+    const badge = document.createElement('div');
+    badge.id        = 'qr-lang-badge';
+    badge.innerHTML = `🌐 ${langInfo.flag} Translated to ${langInfo.name}`;
+
+    // Minimal inline styles — no new CSS classes needed
+    Object.assign(badge.style, {
+      fontSize:     '12px',
+      color:        'var(--gray-500, #6b7280)',
+      textAlign:    'center',
+      marginBottom: '8px',
+      padding:      '4px 0',
+    });
+
+    banner.parentNode.insertBefore(badge, banner);
+  }
+}
+
+
+// ============================================
 //  PAGE ROUTER
 // ============================================
 (function init() {
@@ -766,7 +870,9 @@ async function handleLangSwitch(langKey) {
 
   if (page === 'qr.html') {
     requireAuth();
-    loadQRPage();
+    // loadQRPage renders the QR card; translateQRPage then auto-translates
+    // all UI strings based on the owner's browser language (navigator.language).
+    loadQRPage().then(() => translateQRPage());
   }
 
   if (page === 'item.html') {
