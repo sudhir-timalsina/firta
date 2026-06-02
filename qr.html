@@ -33,8 +33,9 @@
     <div class="qr-success-banner">
       <div class="qr-success-icon">🎉</div>
       <div class="qr-success-text">
-        <h3>Item registered successfully!</h3>
-        <p>Your QR code is ready. Print it and attach to your item.</p>
+        <!-- data-i18n: key used by translateQRPage() to find & translate this element -->
+        <h3 data-i18n="successTitle">Item registered successfully!</h3>
+        <p data-i18n="successDesc">Your QR code is ready. Print it and attach to your item.</p>
       </div>
     </div>
 
@@ -49,14 +50,14 @@
         <div class="qr-frame">
           
           <div id="qr-code-container"></div>
-          <div class="qr-branding">Scan to return via Firta</div>
+          <div class="qr-branding" data-i18n="qrBranding">Scan to return via Firta</div>
         </div>
       </div>
 
       
       <div class="qr-actions">
         <button class="btn btn-primary" id="download-btn">
-          ⬇️ Download QR
+          ⬇️ <span data-i18n="downloadBtn">Download QR</span>
         </button>
         <a href="dashboard.html" class="btn btn-ghost">
           ← Dashboard
@@ -70,13 +71,13 @@
 
     
     <div class="card" style="text-align:left; margin-top:0">
-      <h3 style="font-size:16px; margin-bottom:14px">📋 What to do next</h3>
+      <h3 style="font-size:16px; margin-bottom:14px" data-i18n="nextTitle">📋 What to do next</h3>
       <div style="display:flex; flex-direction:column; gap:12px">
         <div style="display:flex; gap:12px; align-items:flex-start">
           <div style="font-size:20px; flex-shrink:0">1️⃣</div>
           <div>
-            <strong style="font-size:14px">Download the QR code</strong>
-            <p style="font-size:13px; color:var(--gray-500); margin-top:2px">
+            <strong style="font-size:14px" data-i18n="step1Title">Download the QR code</strong>
+            <p style="font-size:13px; color:var(--gray-500); margin-top:2px" data-i18n="step1Desc">
               Click "Download QR" above to save the image to your device.
             </p>
           </div>
@@ -84,8 +85,8 @@
         <div style="display:flex; gap:12px; align-items:flex-start">
           <div style="font-size:20px; flex-shrink:0">2️⃣</div>
           <div>
-            <strong style="font-size:14px">Print and attach</strong>
-            <p style="font-size:13px; color:var(--gray-500); margin-top:2px">
+            <strong style="font-size:14px" data-i18n="step2Title">Print and attach</strong>
+            <p style="font-size:13px; color:var(--gray-500); margin-top:2px" data-i18n="step2Desc">
               Print the QR as a sticker or tag. Attach it to your bag, keys, laptop, etc.
             </p>
           </div>
@@ -93,8 +94,8 @@
         <div style="display:flex; gap:12px; align-items:flex-start">
           <div style="font-size:20px; flex-shrink:0">3️⃣</div>
           <div>
-            <strong style="font-size:14px">You're protected</strong>
-            <p style="font-size:13px; color:var(--gray-500); margin-top:2px">
+            <strong style="font-size:14px" data-i18n="step3Title">You're protected</strong>
+            <p style="font-size:13px; color:var(--gray-500); margin-top:2px" data-i18n="step3Desc">
               If anyone finds your item, scanning the QR will show them how to contact you.
             </p>
           </div>
