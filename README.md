@@ -15,7 +15,7 @@
 
 ---
 
-## Features
+## Features of Firta
 
 - **Auth** — bcrypt password hashing, 30-day sessions
 - **Items** — Register, view, delete; auto-generated unique tag IDs
