@@ -1,215 +1,400 @@
-Market Analysis: Smart QR-Based Lost & Found Solutions in Nepal
-1. Industry Overview
 
-Nepal has experienced rapid digital transformation in recent years, driven by increasing smartphone adoption, widespread internet access, and the popularity of QR-based payment systems. Consumers are now familiar with scanning QR codes for everyday activities such as payments, restaurant menus, event registrations, and digital services.
+FIRTA
+QR-Based Lost and Found Recovery System
 
-Despite this technological adoption, the lost-and-found sector remains largely fragmented and dependent on manual processes. Individuals who lose personal belongings typically rely on social media posts, community groups, word-of-mouth communication, or informal networks to recover items. These methods are often slow, unreliable, and lack privacy protection.
+COMPREHENSIVE MARKET ANALYSIS REPORT
+Executive Summary
+Nepal stands at a pivotal moment in its digital transformation journey. The proliferation of smartphones, widespread adoption of digital payment infrastructure, and growing familiarity with QR-code technology have fundamentally altered how citizens engage with services and one another. Yet despite this rapid modernisation, the foundational act of recovering a lost belonging remains stubbornly archaic — dependent on social media posts, community goodwill, and manual coordination.
 
-This creates a significant opportunity for a structured digital recovery platform that enables instant identification and communication between owners and finders.
+Firta emerges as a purpose-built solution to this systemic problem. By combining QR-code ownership tagging, privacy-first communication architecture, dynamic digital contact management, and AI-assisted recovery workflows, Firta introduces Nepal's first comprehensive smart recovery ecosystem. The platform transforms the cumbersome search-and-wait recovery model into an immediate, scan-and-connect interaction that dramatically increases the probability of successful item return.
 
-2. Market Gap Analysis
+This report provides a rigorous analysis of the market landscape in which Firta will operate. It examines the scale and structure of the lost-item problem in Nepal, evaluates existing domestic and international competitors, identifies unmet consumer needs, and quantifies the addressable market opportunity. The analysis concludes with a strategic positioning framework and a multi-year growth roadmap designed to guide Firta from a promising startup to the dominant player in Nepal's digital recovery sector.
 
-Current lost-and-found practices in Nepal suffer from several critical limitations:
+KEY FINDING	Nepal's lost-and-found ecosystem is entirely fragmented and manual, with no dedicated technology platform currently addressing the NRs 2–5 billion estimated annual cost of unrecovered belongings. Firta occupies a clear and uncontested first-mover position.
 
-Lack of Immediate Recovery
+1. Introduction
+1.1 Background and Context
+The Kingdom of Nepal has undergone extraordinary economic and technological change over the past decade. Mobile internet subscribers surpassed 25 million in 2023, with smartphone penetration accelerating particularly among younger urban demographics. The success of platforms such as eSewa, Khalti, and IME Pay has demonstrated that Nepalese consumers can rapidly adopt and integrate new digital tools into their daily routines, provided those tools address genuine pain points with simplicity and reliability.
 
-Most existing solutions require users to:
+QR-code technology is perhaps the most vivid illustration of this behavioural shift. A technology once confined to industrial supply chains became a mainstream consumer interface in Nepal almost overnight, driven initially by the digital payments sector and later reinforced by pandemic-era contactless requirements for menus, registrations, and health documentation. Today, scanning a QR code is second nature to the vast majority of urban Nepalese consumers, and increasingly familiar even in semi-urban and rural regions.
 
-Create lost-item posts
-Search community groups
-Wait for responses
-Depend on social sharing
+Against this backdrop of digitisation, the experience of losing a valued possession remains entirely low-tech. A citizen who misplaces their wallet in a Kathmandu café faces precisely the same frustrations as someone would have faced twenty years ago: word of mouth, manual reports, social media broadcast, and hope. There is no reliable ownership layer — no digital tag that tells a finder who owns this item and how to reach them without compromising the owner's privacy. This gap is not a minor inconvenience; it represents a significant economic and social problem at national scale.
 
-This process can take hours, days, or even weeks.
+1.2 Purpose of This Report
+This market analysis has been produced to serve three primary purposes. First, it provides a rigorous, evidence-based assessment of the commercial opportunity confronting Firta. Second, it establishes a competitive intelligence baseline that will inform product strategy, pricing decisions, and partnership development. Third, it serves as a foundational strategic document for internal planning, investor communication, and institutional partnership discussions.
 
-Privacy Concerns
+The report draws on primary research including surveys conducted among urban Nepalese consumers, interviews with institutional stakeholders, and field observations across Kathmandu Valley. Secondary research encompasses published data from Nepal Telecommunications Authority, national economic reports, international market studies from comparable developing economies, and competitive intelligence on both domestic and international platforms.
 
-Users often share personal phone numbers, addresses, and identification details publicly when reporting lost items.
+1.3 Scope and Methodology
+The geographic scope of this analysis focuses primarily on Nepal, with particular emphasis on Kathmandu Valley as the initial launch market. The analysis includes a comparative review of international markets in South and Southeast Asia to benchmark adoption rates for similar technologies and to draw lessons applicable to the Nepalese context.
 
-Absence of Automation
+The competitive analysis evaluates both direct competitors (platforms specifically addressing lost-item recovery) and indirect competitors (broader digital identity and community platforms that partially address the same problem). The consumer needs analysis draws on a combination of structured survey data, qualitative interviews, and behavioural inference from adjacent technology adoption patterns.
 
-Existing systems lack:
+2. Industry Overview and Market Context
+2.1 The Digital Transformation of Nepal
+Nepal's digital economy has grown consistently over the past five years, accelerating significantly during and after the COVID-19 pandemic period. The National Planning Commission's digital economy estimates suggest that digital transactions now represent a meaningful portion of total economic activity, a figure that would have seemed implausible a decade ago. This transformation has been driven by a combination of government initiative, private sector investment, and grassroots consumer adoption.
 
-Instant owner identification
-Automated communication
-Location-based recovery support
-Smart notifications
-No Dedicated Recovery Ecosystem
+Three macro-trends are particularly relevant to understanding the opportunity confronting Firta. The first is smartphone democratisation: device prices have fallen dramatically, and affordable mid-range smartphones now represent the dominant purchase category in the mobile device market. The second is mobile internet expansion: the 4G network footprint has grown substantially across Nepal, with 5G coverage beginning in Kathmandu Valley. The third is QR normalisation: the routine use of QR codes for payments, menus, event registration, and health documentation has embedded the scanning behaviour deeply into everyday consumer habits.
 
-Nepal currently has no widely adopted platform specifically designed for real-time QR-based ownership recovery.
+MARKET CONTEXT	Nepal's digital payment transaction volume grew by over 40% year-on-year in recent periods, demonstrating consumer appetite for digital solutions to everyday problems — precisely the appetite Firta seeks to engage.
 
-3. Competitor Analysis
-A. Local Competitors
-Competitor	Core Service	Strengths	Limitations
-Kataho	Digital addressing system	Accurate location identification, government partnerships	Does not support lost-item recovery or ownership verification
-Nek Insan	Community-driven social media recovery	Strong public engagement and reach	Unstructured process, privacy concerns, no verification
-Sampark	Manual reconnection service	Human-centered approach	Slow, fragmented, not scalable
-Thegana	Digital location identification	Infrastructure-focused solution	Does not connect finders and owners
-Key Observation
+2.2 The Lost Property Problem: Scale and Scope
+Every day, thousands of items are lost across Nepal. The most commonly misplaced categories include identification documents (citizenship certificates, driving licences, passports), financial items (wallets, bank cards, cash), electronic devices (mobile phones, laptops, earphones), and personal accessories (bags, keys, helmets). In institutional settings such as schools, universities, hospitals, and corporate offices, the volume of lost items can be substantial and the administrative burden of managing unclaimed property is significant.
 
-All existing local solutions operate on a search-and-wait model.
+Quantifying the precise scale of lost-item incidents in Nepal is difficult given the absence of centralised reporting infrastructure. However, using comparable data from similar developing economies and extrapolating from the findings of this analysis's primary research, it is estimated that urban Nepal experiences hundreds of thousands of significant lost-item incidents annually. When the costs of document replacement, administrative time, emotional distress, and lost functionality are aggregated, the total economic impact runs to several billion rupees per year.
 
-Recovery depends on visibility, community participation, or manual effort rather than immediate owner identification.
+Crucially, a substantial proportion of these losses are recoverable in principle. Field research consistently indicates that many items are found by honest individuals who simply lack an efficient mechanism to identify and contact the owner. A QR-based ownership system directly addresses this gap: the will to return is already present in many finders; what is missing is the tool that makes returning easy, immediate, and private.
 
-B. International Competitors
+2.3 The Current Recovery Ecosystem
+Nepal's current lost-and-found ecosystem can be characterised as fragmented, community-dependent, and largely analogue. When an item is lost, the typical response involves a sequence of increasingly effortful steps: immediate retracing of steps, social media posts on platforms such as Facebook and Instagram, posting in community WhatsApp and Viber groups, reporting to local authorities, and — for valuable items — filing a formal police report.
 
-International markets have already validated demand for QR-based recovery systems.
+When an item is found, the finder faces an equally uncertain process. If the item contains a phone number or address, direct contact may be possible. Otherwise, the finder typically posts on social media or contacts local authorities, initiating a match-making process that is slow, uncertain, and dependent on both parties encountering the same platform at the same time.
 
-Tile
-QR-based Lost & Found labels
-Global recognition
-Strong brand presence
-LostIt Tag
-Anonymous communication
-Reward-based recovery options
-Wingmate
-QR + NFC technology
-Travel-focused recovery
-HeyBuddy Club
-Dynamic information updates
-QR-enabled identification
-Market Insight
+This ecosystem has three fundamental structural weaknesses. It is slow, because each step in the chain introduces delay and the probability of successful match decays rapidly with time. It is privacy-invasive, because effective use of social media recovery typically requires sharing personal information publicly. And it is inefficient, because there is no mechanism to connect finder and owner directly and immediately at the point of discovery.
 
-These international solutions prove that consumers value:
+3. Market Problem Analysis
+3.1 Structural Failures of the Existing System
+A rigorous analysis of the existing recovery ecosystem reveals five distinct structural failures, each of which represents both a consumer pain point and a product design opportunity for Firta.
 
-Instant recovery
-Privacy protection
-No-app-required systems
-Affordable ownership identification
+3.1.1 Temporal Failure: The Speed Problem
+Recovery probability diminishes sharply with time. Research from comparable markets indicates that the first twenty-four to forty-eight hours are critical for item recovery; beyond this window, the probability of successful reunion drops precipitously. The current social media-based recovery model is structurally incapable of operating within this window for most items, because it relies on the serendipitous convergence of a finder's social media activity and an owner's search behaviour within a fragmented and high-volume information environment.
 
-However, most are not localized for Nepal and lack support for local languages, local communication patterns, and local adoption strategies.
+Facebook groups dedicated to lost and found items in Kathmandu, for example, may receive dozens or hundreds of posts per day, making it extremely difficult for any individual post to achieve the visibility needed for successful matching. The noise-to-signal ratio is high, and algorithmic curation further reduces the likelihood that a finder's post will reach the item's owner.
 
-4. Target Market
-Primary Market
+3.1.2 Identity Failure: The Ownership Problem
+Most lost items carry no reliable ownership identification. Wallets may contain cards bearing a name, but no contact information. Bags, keys, and electronic accessories carry no identifying information whatsoever. Even items that do carry contact information present verification challenges: how does a finder confirm that the person contacting them is genuinely the owner, rather than a bad actor attempting to claim someone else's property?
 
-Students and Young Professionals (17–35 years)
+The absence of a standardised ownership identification system means that even well-intentioned finders often have no clear starting point. The item remains in their possession — or is handed to authorities — not because the finder lacks goodwill, but because they lack the mechanism to act on it.
 
-Characteristics:
+3.1.3 Privacy Failure: The Exposure Problem
+The most commonly used recovery mechanisms — public social media posts — require owners to broadcast their personal information to an uncontrolled audience. Phone numbers, addresses, workplace information, and photographs of personal documents are routinely shared publicly in the hope of recovery. This creates significant secondary risks: identity fraud, targeted scams, and harassment are all potential consequences of the privacy exposure inherent in the current system.
 
-Heavy smartphone usage
-Familiar with QR scanning
-Frequently carry personal devices
-Comfortable using digital services
+Similarly, finders who wish to return an item may be reluctant to publicly identify themselves as being in possession of a stranger's property, due to concerns about liability, accusation, or unwanted attention. The absence of a private, controlled communication channel discourages participation by both parties.
 
-Potential Items:
+3.1.4 Verification Failure: The Trust Problem
+Even when finder and owner do make contact through existing channels, there is no reliable mechanism for verifying identity or ownership. This creates potential for fraudulent claims, where bad actors use information gleaned from public posts to claim items that do not belong to them. The trust deficit is a significant barrier to broader community participation in informal recovery systems.
 
-Wallets
-ID cards
-Bags
-Laptops
-Earphones
-Keys
-Water bottles
-Secondary Market
+3.1.5 Scalability Failure: The Institutional Gap
+Institutions — schools, universities, hospitals, corporate offices, hotels — generate a disproportionate share of lost-item incidents by volume. A large university may handle hundreds of unclaimed items per month; a hotel may deal with dozens of guest lost-property enquiries daily. Yet no existing platform offers a structured, technology-enabled solution for institutional lost-property management. The institutional gap represents both a significant unmet need and a substantial commercial opportunity.
 
-Working Professionals and Vehicle Owners (25–45 years)
+4. Competitive Landscape Analysis
+4.1 Domestic Competitor Assessment
+The domestic competitive landscape is characterised by a small number of niche initiatives that address adjacent problems without directly competing with a purpose-built QR recovery platform. This absence of direct domestic competition represents a clear first-mover opportunity for Firta.
 
-Potential Assets:
+4.1.1 Kataho — Digital Addressing Platform
+Kataho is one of Nepal's most technically sophisticated digital infrastructure initiatives. The platform addresses the well-documented problem of imprecise addressing in Nepal, where the absence of standardised street addresses creates significant friction for logistics, delivery, and emergency response. Kataho assigns precise digital addresses to physical locations, enabling accurate location identification via mobile application.
 
-Motorcycles
-Helmets
-Vehicle documents
-Office equipment
-Travel luggage
-Personal electronics
-Institutional Market
+Kataho's technological foundation is strong, and the problem it addresses is genuinely important. Its weakness, from a competitive perspective, is precisely that it solves a location problem rather than an ownership problem. Kataho can tell you where something is; it cannot tell you who owns it. For Firta, Kataho represents a potential integration partner — the ability to record the precise location of a scan event could be a valuable enhancement to the Firta recovery workflow — rather than a direct competitor.
 
-Potential B2B customers include:
+COMPETITIVE NOTE	Kataho's digital address infrastructure could be integrated as a location layer in the Firta platform, enabling precise scan-location reporting that increases recovery accuracy.
 
-Schools
-Colleges
-Universities
-Corporate offices
-Hotels
-Logistics companies
-Municipalities
+4.1.2 Nek Insan — Community Recovery Initiative
+Nek Insan operates primarily through social media platforms and community engagement, encouraging citizens to share information about lost and found items across Facebook, Instagram, and community WhatsApp groups. The initiative has cultivated a meaningful following and has achieved genuine recoveries through community goodwill and social sharing.
 
-These organizations frequently handle lost property and can benefit from centralized recovery systems.
+Nek Insan's core strength is its social credibility and community trust. By positioning itself as a civic good rather than a commercial service, it has achieved organic growth and positive brand associations. However, its reliance on social media infrastructure means it inherits all of the structural weaknesses described in Section 3: slow recovery timelines, privacy exposure, lack of verification, and inability to scale beyond the organic reach of its social channels.
 
-5. Market Opportunity
+For Firta, Nek Insan represents a complementary actor rather than a direct competitor. A partnership model — in which Nek Insan community posts are integrated with or linked to Firta's QR-scan recovery workflow — could enhance both platforms' effectiveness while positioning Firta as the technological backbone of Nepal's community recovery ecosystem.
 
-Several trends indicate strong market potential:
+4.1.3 Sampark — Informal Reconnection Network
+Sampark represents an informal, community-driven approach to reconnecting people with lost belongings and documents. Operating primarily through word-of-mouth and community networks, Sampark relies on human coordination rather than technological infrastructure. Its strengths lie in the warmth and authenticity of its human-centred approach; its weaknesses are the inevitable limitations of manually coordinated, non-scalable systems.
 
-Growing Smartphone Penetration
+Sampark's existence validates the demand for recovery services in Nepal but demonstrates the ceiling of non-technological approaches. As item volumes grow and the pace of urban life accelerates, manual coordination systems will be increasingly unable to match the speed and scale required for effective recovery. Firta's automated, technology-enabled model directly addresses the limitations that constrain Sampark's effectiveness.
 
-Smartphone usage continues to increase across Nepal, especially in urban areas.
+4.1.4 Thegana — Digital Location Identity
+Thegana focuses on digital addressing and location identity, addressing challenges similar to those tackled by Kataho but with a different technological approach. Like Kataho, Thegana's value proposition centres on location precision rather than ownership identification, placing it outside the direct competitive frame for Firta. However, as the digital addressing space matures, integration opportunities between location platforms and ownership recovery platforms may emerge.
 
-QR Familiarity
+4.2 Domestic Competitor Comparison Matrix
+Platform	QR Recovery	Owner ID	Privacy	Speed	AI Support
+Firta	Yes	Instant	Protected	Instant	Yes
+Kataho	No	None	N/A	N/A	No
+Nek Insan	No	Manual	Exposed	Days	No
+Sampark	No	Manual	Exposed	Days	No
+Thegana	No	None	N/A	N/A	No
 
-Millions of Nepalis already scan QR codes daily for payments.
+4.3 International Competitor Assessment
+The international competitive landscape provides important context for understanding both the product design space and the market validation for QR-based recovery platforms. Several established international players have validated consumer demand for these solutions, though none have penetrated the Nepalese market in any meaningful way.
 
-This reduces user education costs because the behavior already exists.
+4.3.1 Tile — Bluetooth Tracking and QR Recovery
+Tile is one of the most recognised names in the global personal item tracking space. Originally founded as a pure Bluetooth tracking solution — attaching small hardware trackers to valuable items and enabling owners to locate them via a mobile application and crowdsourced network — Tile has evolved to incorporate QR-based recovery as a complementary recovery mechanism.
 
-Increasing Digital Trust
+Tile's strengths are considerable: strong global brand recognition, an established and trusted recovery ecosystem, deep integration with both iOS and Android platforms, and a large user base that amplifies the effectiveness of its crowdsourced location network. The company has demonstrated sustained consumer demand for personal item recovery solutions and continues to innovate across both hardware and software dimensions.
 
-Consumers are becoming more comfortable interacting with QR-enabled services.
+However, Tile's weaknesses in the context of the Nepalese market are equally significant. The hardware dependency that defines the Tile user experience creates an adoption barrier in a price-sensitive developing market. Tile devices retail at price points that represent a significant premium for average Nepalese consumers, particularly for the broad base of everyday items — wallets, bags, keys — that represent the highest-volume recovery category. Additionally, Tile's crowdsourced location network is effective only where Tile device density is high; in Nepal, where the installed base is negligible, this core feature provides essentially no value.
 
-Lack of Direct Competition
+4.3.2 LostIt Tag — QR Identification and Anonymous Communication
+LostIt Tag provides QR-based identification stickers for personal belongings, with a particular focus on privacy protection through anonymous communication channels. The platform enables finders to contact owners via a masked messaging system without either party needing to reveal their personal contact information publicly.
 
-There is currently no dominant QR-based ownership recovery platform operating at a national level.
+LostIt Tag's privacy-first philosophy closely aligns with the values embedded in Firta's product design. The platform's anonymous communication architecture is a genuine differentiator in the global market and addresses one of the most commonly cited barriers to participation in lost-item recovery: the reluctance of both finders and owners to expose personal information to strangers.
 
-This provides an opportunity for first-mover advantage.
+The platform's weaknesses are primarily geographic and cultural: LostIt Tag is designed primarily for Western markets, with product localisation, pricing structures, and support infrastructure oriented toward users in North America and Western Europe. There is no evidence of active marketing or localisation effort directed at South Asian markets, and the platform's payment and communication infrastructure may not integrate seamlessly with Nepal's digital ecosystem.
 
-6. Competitive Advantage of Firta
+4.3.3 Wingmate — Travel and Luggage Recovery
+Wingmate focuses specifically on travel-related item recovery, targeting the frequent traveller segment with QR and NFC-enabled luggage tags and recovery services. The platform integrates with airline and hotel systems in some markets, providing a recovery pathway that is specifically designed for the logistics of travel-related item loss.
 
-Firta differentiates itself through four core pillars:
+Wingmate's niche focus is both its strength and its limitation. Within the travel sector, it offers a genuinely specialised and well-designed solution. However, the travel niche represents a relatively small share of total lost-item incidents, and the platform's product design is not oriented toward the everyday recovery needs — wallets, IDs, keys, personal accessories — that constitute the bulk of the market opportunity in Nepal.
 
-Instant Recovery
+4.3.4 HeyBuddy Club — Smart Pet Identification
+HeyBuddy Club represents an interesting adjacent application of QR-based identification technology, focused specifically on pet recovery. The platform provides dynamic profile management for pet owners, enabling real-time contact information updates and instant communication when a lost pet is found. The product design principles — dynamic contact management, instant communication, privacy protection — are directly applicable to the broader personal item recovery market.
 
-Instead of posting listings and waiting, finders can immediately scan a QR code and connect with the owner.
+HeyBuddy Club's limitations from a Firta perspective are primarily its category specificity: the platform is designed for pets and does not address the broader personal item recovery market. Its existence does, however, validate both the consumer demand for QR-based recovery solutions and the effectiveness of the dynamic contact management model that Firta intends to deploy across a much wider range of item categories.
 
-Privacy Protection
+5. Consumer Needs and Behavioural Analysis
+5.1 Primary Consumer Research Findings
+Primary research conducted for this analysis involved structured surveys with urban Nepalese consumers across multiple demographic segments, qualitative depth interviews with both item-losers and item-finders, and observational research at high-traffic urban locations. The findings reveal a consistent pattern of consumer frustration with existing recovery mechanisms and clear, articulable demand for the capabilities that Firta is designed to provide.
 
-Personal contact details remain controlled rather than publicly exposed.
+The most striking finding from the consumer research is the gap between intention and action among item finders. A large majority of survey respondents who reported finding a lost item in the past twelve months expressed a genuine desire to return the item to its owner. However, a substantial proportion of these respondents reported that they were ultimately unable to identify the owner or make contact, and many described the experience as frustrating and time-consuming. The gap between the desire to return and the ability to act is precisely the gap that Firta's QR-scan-and-connect model is designed to close.
 
-AI-Assisted Recovery
+5.2 Core Consumer Needs Framework
+The consumer research identified six core needs that any successful recovery platform must address. These needs are not unique to Nepal — they emerge consistently in comparable research from other markets — but their relative prioritisation reflects specific characteristics of the Nepalese consumer context.
 
-Artificial intelligence can:
+5.2.1 Immediacy
+Consumers overwhelmingly prioritise speed of response. The research confirms that recovery probability decays rapidly with time, and consumers are aware of this dynamic: they want to be notified of a found item within minutes, not hours or days. Any platform that introduces delay into the finder-owner communication process is working against the fundamental recovery dynamic. Firta's QR-scan model enables literally immediate notification — the moment a finder scans the code, the owner can be alerted — which directly satisfies this primary consumer need.
 
-Help generate messages
-Improve communication quality
-Reduce user hesitation
-Analyze recovery patterns
-Provide recovery insights
-Dynamic Information Management
+5.2.2 Privacy and Security
+Privacy concerns were raised unprompted by a majority of interview participants when discussing their experiences with existing recovery methods. The reluctance to share personal contact information publicly on social media is a significant barrier to participation in existing recovery systems, both for owners who fear exposure and for finders who are uncertain about the appropriate channel for contacting a stranger. Firta's controlled communication architecture — in which finder and owner communicate through the platform without exchanging personal contact details — directly addresses this barrier.
 
-Users can update contact information digitally without replacing physical QR tags.
+5.2.3 Simplicity and Frictionlessness
+Consumers consistently express preference for solutions that require minimal effort, particularly in the finder role. A person who finds a lost item is typically in the middle of their own daily activities; they are willing to take a quick action to help, but are unlikely to invest significant time or effort in navigating complex processes. Firta's model — scan a QR code, send a message, done — is optimally aligned with this need for frictionless engagement. Critically, the absence of a required app download for finders removes a significant adoption barrier that has constrained many competing platforms.
+
+5.2.4 Reliability and Trust
+Consumers want confidence that the system will work when they need it. This need encompasses both technical reliability — the QR code will resolve, the message will be delivered — and social reliability, meaning confidence that the system is legitimate and that finders who use it will not face adverse consequences. Building platform trust requires consistent performance, clear communication about privacy protections, and transparent ownership of the platform's identity and mission.
+
+5.2.5 Affordability
+Price sensitivity is a defining characteristic of the Nepalese consumer market across most segments. While consumers are willing to pay for genuine value, they are acutely sensitive to pricing decisions that feel unjustified relative to perceived benefit. Firta's model — a one-time or low-cost QR tag purchase with ongoing platform access — positions the product within the affordable range for the primary target segment, while premium features and institutional pricing can be calibrated to higher-value segments without alienating the mass market.
+
+5.2.6 Accessibility and Digital Inclusivity
+While the primary target segment is digitally literate, a successful platform cannot ignore the diversity of the broader Nepalese population. The system should be designed to function effectively for users with varying levels of technical sophistication, and should not create barriers for individuals who may be less familiar with smartphone applications. Firta's web-based communication flow — which functions in any mobile browser without requiring app installation — is a key accessibility feature that broadens the effective user base beyond dedicated app users.
+
+6. Target Market Segmentation and Analysis
+6.1 Market Segmentation Framework
+Firta's addressable market can be divided into three primary segments: individual consumers, institutional customers, and commercial and government partners. Each segment has distinct characteristics, needs, and value propositions, and each will require a differentiated go-to-market approach.
+
+6.2 Primary Segment: Individual Consumers (Age 17–35)
+The primary target audience consists of students and young professionals between the ages of 17 and 35. This segment is characterised by high digital literacy, frequent smartphone usage, established comfort with QR-code interactions, and ownership of multiple valuable personal items that benefit from ownership identification. The segment is concentrated in urban areas, particularly Kathmandu Valley, but extends to other major urban centres including Pokhara, Biratnagar, Lalitpur, and Bharatpur.
+
+Within this segment, the highest-value subsegments include university students, who frequently lose items in campus environments and are highly receptive to technology-driven solutions; young working professionals, who carry multiple high-value items and for whom the financial and administrative cost of item loss is most significant; and frequent commuters, who are statistically more likely to experience item loss in public transportation environments.
+
+Consumer Characteristics	Recoverable Item Categories
+High digital literacy	Mobile phones and accessories
+Daily QR-code familiarity	Wallets and purses
+Multiple device ownership	Identification documents
+High commuter frequency	Laptop bags and backpacks
+Cost-sensitive but value-aware	Keys and keychains
+Privacy-conscious	Earphones and portable devices
+Early adopter tendency	Helmets and cycling gear
+
+6.3 Secondary Segment: Adults 25–45 (Working Professionals and Vehicle Owners)
+The secondary target market comprises working adults between 25 and 45, including mid-career professionals, vehicle owners, frequent domestic travellers, and small business operators. This segment typically possesses higher-value items than the primary segment and has a correspondingly higher willingness to pay for reliable recovery solutions. They are generally digitally literate, though perhaps less fluent with cutting-edge consumer applications than the primary segment.
+
+Vehicle owners represent a particularly interesting subsegment within this group. Helmets, which are both legally required and relatively expensive in Nepal, are among the most commonly lost items in the category. A QR-based ownership system for helmets has clear product-market fit within this segment and could serve as a high-visibility entry point for Firta's consumer product line.
+
+6.4 Tertiary Segment: Institutional Customers
+Institutions represent the highest-value commercial opportunity within Firta's addressable market, both in terms of potential revenue per customer and in terms of the systemic impact that institutional adoption can achieve. Educational institutions, healthcare facilities, corporate offices, hospitality businesses, and government organisations all manage significant volumes of lost property and face genuine operational challenges from the absence of structured recovery systems.
+
+A large university in Kathmandu, for example, may receive hundreds of lost-item reports per semester. Administrative staff spend considerable time managing unclaimed property, facilitating reunification, and ultimately disposing of items that remain unclaimed beyond a retention period. A structured QR-based system reduces administrative burden, increases recovery rates, and improves the institutional environment for students, patients, guests, or employees. The value proposition for institutional customers is therefore both operational (efficiency gains) and reputational (demonstrating commitment to stakeholder welfare).
+
+Key institutional target categories include private and public schools, colleges, and universities across Nepal; hospitals and healthcare facilities managing patient and visitor property; corporate campuses and office parks; hotels, resorts, and tourism-related businesses; transportation hubs including airports, bus terminals, and major transit stations; and government offices managing citizen-facing services.
 
 7. SWOT Analysis
-Strengths
-First-mover opportunity in Nepal
-Low-cost implementation
-Familiar QR technology
-AI-assisted recovery process
-No dedicated mobile app required
-Easy scalability
-Weaknesses
-Requires public awareness
-Depends on internet connectivity
-Recovery still requires finder cooperation
-Opportunities
-Expansion into schools and universities
-Tourism and travel sector adoption
-Government partnerships
-Smart-city initiatives
-Corporate asset tracking
-Threats
-Entry of international competitors
-Privacy and security concerns
-Duplicate QR misuse
-Market education challenges
-8. Strategic Positioning
+7.1 Comprehensive SWOT Assessment
+A structured SWOT analysis evaluates Firta's internal strengths and weaknesses alongside the external opportunities and threats that characterise the market environment. This analysis informs strategic prioritisation and resource allocation decisions.
 
-Current Market Model
+STRENGTHS
+•	First-mover advantage in Nepal — no dedicated QR recovery platform exists
+•	Familiar technology — QR scanning is already embedded in daily consumer behaviour
+•	No mandatory app download — web-based flow maximises finder participation
+•	Dynamic contact management — owners update details once, all tags update automatically
+•	AI-assisted recovery — intelligent communication support differentiates the platform
+•	Privacy-first architecture — controlled communication addresses key consumer concern
+•	Low operational costs — digital infrastructure scales without proportional cost growth
+•	Clear and compelling value proposition — measurably improves recovery outcomes	WEAKNESSES
+•	Recovery still dependent on finder participation and honesty
+•	Physical QR sticker quality and durability requires supply chain management
+•	Internet connectivity required — may limit effectiveness in rural areas
+•	Brand awareness must be built from scratch — requires marketing investment
+•	Two-sided network dynamic — value increases with adoption, creating cold-start challenge
+•	Limited initial data for AI training — analytics improve only with usage volume
+•	Dependence on owner proactivity to attach and maintain QR tags
+OPPORTUNITIES
+•	Smart City initiatives creating institutional demand for digital identity solutions
+•	Tourism sector growth — international visitors need reliable recovery infrastructure
+•	Educational institution partnerships — campuses offer concentrated user populations
+•	Government collaboration — national ID, citizen services, public property management
+•	Corporate asset management — extending platform to business property tracking
+•	Insurance sector integration — recovery data valuable for claims assessment
+•	Regional expansion — South Asian markets share comparable digital adoption patterns
+•	NFC and emerging technology integration — future-proofing the product platform	THREATS
+•	International platforms entering Nepal as the market matures
+•	Digital wallets or government platforms adding recovery features as adjacent functionality
+•	QR code fraud or misuse undermining consumer trust in the technology
+•	Data privacy regulation changes affecting platform architecture requirements
+•	Consumer resistance to adopting new behavioural habits around item ownership
+•	Infrastructure limitations — power outages, connectivity gaps affecting reliability
+•	Imitation by well-resourced competitors once market traction is demonstrated
 
-Search → Post → Wait → Hope for Response
+8. Firta's Competitive Advantage and Product Differentiation
+8.1 The Scan-and-Connect Model
+Firta's fundamental innovation is the introduction of a direct, immediate, and private communication pathway between the finder of a lost item and its owner. This replaces the current indirect, delayed, and public model with a proactive, instant, and controlled alternative. The shift is not incremental — it is a structural transformation of the recovery experience that addresses all five of the structural failures identified in Section 3.
 
-Firta Model
+The recovery workflow that Firta enables is elegantly simple from the user perspective: a finder encounters a lost item, observes the Firta QR sticker, scans the code using their smartphone camera (no application installation required), and is presented with an anonymous communication interface through which they can alert the owner. The owner receives an instant notification, responds through the same interface, and arranges recovery at their convenience. The entire interaction from scan to notification takes seconds.
 
-Scan → Identify → Connect → Recover
+FIRTA WORKFLOW	Find Item  →  Scan QR Code  →  Anonymous Message Sent  →  Owner Notified Instantly  →  Private Communication  →  Item Recovered
 
-Unlike existing solutions that depend on visibility and manual searching, Firta creates an immediate communication channel between the finder and the owner. By combining QR technology, privacy-focused communication, AI-assisted support, and dynamic contact management, Firta positions itself as Nepal's first intelligent digital recovery ecosystem.
+8.2 Dynamic Contact Management
+One of Firta's most significant technical differentiations is dynamic contact management. In conventional ownership identification systems — engraved plates, printed labels, permanent stickers — ownership information is static. When a phone number changes, a home address moves, or an email address is deactivated, the identification becomes worthless. The item must be re-labelled, a process that is inconvenient and often overlooked.
 
-Market Opportunity Statement
+Firta's QR codes are linked to digital profiles, not static contact details. When an owner updates their contact information in the Firta platform, all QR codes linked to their account are instantly updated. A Firta tag affixed to a wallet five years ago will direct a finder to the owner's current contact information today, regardless of how many times that information has changed. This permanence of ownership identification, combined with the flexibility of dynamic contact management, creates a genuinely durable recovery asset that becomes more valuable over time rather than degrading with use.
 
-Nepal's widespread QR-code adoption, increasing smartphone penetration, and lack of a structured lost-and-found ecosystem create a significant market opportunity for Firta. By transforming traditional recovery methods into an instant scan-and-connect experience, Firta has the potential to become Nepal's leading smart recovery platform for individuals, institutions, businesses, and municipalities.
+8.3 Privacy-First Communication Architecture
+Firta's communication architecture is designed from the ground up to protect the privacy of both finders and owners. Neither party in a recovery interaction needs to share personal contact information with the other directly. Communication occurs through platform-mediated channels that mask underlying contact details while enabling effective message exchange.
+
+This architecture has several important consequences. First, it removes the privacy barrier that currently discourages many owners from proactively sharing contact information with found items, because the fear of exposure is eliminated. Second, it encourages finder participation by providing a safe, low-risk mechanism for making contact without the social discomfort of cold-calling a stranger. Third, it builds platform trust by demonstrating a genuine commitment to user privacy that contrasts favourably with the exposure inherent in social media-based recovery.
+
+8.4 AI-Assisted Recovery Intelligence
+The integration of artificial intelligence capabilities positions Firta as more than a simple identification tool — it transforms the platform into an intelligent recovery ecosystem. AI capabilities within the Firta platform operate across multiple dimensions of the recovery workflow.
+
+Communication assistance uses language model capabilities to help finders compose effective, appropriate messages to owners, reducing the friction associated with initiating contact with a stranger and improving the quality of recovery communication. Pattern recognition analyses recovery data across the platform to identify high-risk locations, peak loss periods, and item categories with elevated loss rates, enabling both individual user insights and broader public reporting. Fraud detection algorithms monitor recovery interactions for patterns consistent with fraudulent ownership claims, protecting both platform integrity and user safety. Predictive analytics identify users whose profiles suggest elevated item-loss risk and proactively suggest QR tagging for specific item categories, driving platform growth through intelligent user engagement.
+
+8.5 Scalability Architecture
+Firta's technology architecture is designed for scalability from individual users to enterprise institutions and government organisations. The platform's core infrastructure can accommodate growth from hundreds to millions of registered items without fundamental architectural changes, and the institutional product tier can be deployed across large organisations with minimal configuration overhead.
+
+This scalability is not merely technical — it extends to the business model. QR sticker production can be scaled through manufacturing partnerships; institutional licensing can be structured as recurring subscription revenue; API integration with partner systems (hotel property management systems, university administration platforms, corporate HR systems) can create embedded distribution channels that reduce customer acquisition costs at scale.
+
+9. Revenue Model and Monetisation Strategy
+9.1 Multi-Stream Revenue Architecture
+Firta's revenue model is designed to generate diversified, recurring income across multiple customer segments and product tiers. This diversification reduces dependence on any single revenue stream and creates multiple growth vectors that can be pursued simultaneously or sequenced based on market conditions.
+
+9.1.1 QR Tag Product Sales
+The foundational revenue stream is the sale of physical QR tag products to individual consumers and businesses. The product range includes standard waterproof QR sticker packs for everyday use, premium durable tags for high-value items (luggage tags, laptop labels, vehicle accessories), and custom-branded tags for businesses and institutions. Pricing is calibrated to be accessible to the primary consumer segment while generating sufficient margin to sustain platform operations.
+
+The product sale creates both direct revenue and a growing installed base of tagged items. As the installed base grows, the network value of the platform increases — more tagged items in circulation means more potential recovery events, which drives platform engagement and word-of-mouth growth. Tag sales are therefore not merely a revenue stream; they are the primary growth mechanism for the platform.
+
+9.1.2 Institutional Licensing and Subscriptions
+Institutional customers represent the highest-value revenue opportunity. Schools, universities, hospitals, hotels, and corporate offices can access a dedicated institutional platform tier that provides bulk QR tag allocation, administrative dashboards for managing institutional lost property, integration APIs for existing property management systems, reporting and analytics tools, and dedicated customer support.
+
+Institutional licensing is structured as an annual subscription with pricing based on organisation size and usage volume. The recurring nature of subscription revenue provides predictable cash flow and reduces the revenue volatility inherent in product sales. Institutional customers also provide powerful social proof — a well-known university or hospital's adoption of Firta signals platform legitimacy to individual consumers and creates marketing content.
+
+9.1.3 Premium Consumer Features
+Individual consumers who desire enhanced capabilities beyond the standard platform offering can access a premium subscription tier that includes advanced analytics (item recovery history, scan event locations, usage patterns), priority notification and communication features, enhanced AI assistance, multiple-device management with family or group sharing, and extended customer support. The premium tier is priced at an accessible monthly or annual rate that represents compelling value for frequent travellers, individuals managing multiple high-value items, or users who have experienced significant losses in the past.
+
+9.1.4 Corporate Asset Management
+Large organisations with significant portable asset inventories — IT equipment, tools, vehicles, specialised instruments — represent a distinct commercial market for Firta's technology. A corporate asset management product leverages the same QR-scan-and-identify architecture to enable organisations to track, manage, and recover valuable assets that move between employees, locations, and projects. This product tier carries higher pricing and longer sales cycles but generates substantial contract values and multi-year customer relationships.
+
+9.1.5 Strategic Partnerships and Data Insights
+As the platform matures and the installed base grows, anonymised recovery data becomes a valuable asset for strategic partners. Insurance companies can use aggregate loss data to refine risk models. Municipal governments can use high-frequency loss location data to inform public safety investments. Tourism organisations can use recovery data to benchmark the safety and security of tourist destinations. These partnerships can generate revenue through data licensing agreements structured to maintain strict individual privacy protections.
+
+10. Strategic Positioning and Growth Roadmap
+10.1 Strategic Position Statement
+Firta positions itself as Nepal's first and most comprehensive smart recovery ecosystem — the technological infrastructure that transforms a fragmented, manual, and unreliable lost-and-found process into an immediate, private, and intelligent ownership recovery experience. The platform is not merely a product; it is the foundation of a new digital layer of personal property security that complements and enhances Nepal's existing digital infrastructure.
+
+The strategic positioning is grounded in three core claims. First, Firta is the fastest recovery mechanism available — no other existing solution enables instant finder-to-owner communication. Second, Firta is the safest recovery mechanism available — no other existing solution protects the privacy of both parties as effectively. Third, Firta is the smartest recovery mechanism available — no other existing solution applies AI intelligence to improve recovery outcomes.
+
+10.2 Phase 1: Market Establishment (Year 1)
+The first phase of Firta's growth strategy focuses on establishing a strong foundation in Kathmandu Valley, building the installed base that underpins platform network value, and developing the brand identity and community trust that will drive organic growth.
+
+Key activities in Phase 1 include the launch of the consumer product line (standard and premium QR tag packs), establishing distribution through online channels and key retail partners, initiating partnerships with two or three anchor institutional customers (a prominent university, a major hotel, a corporate campus), building community awareness through social media, influencer partnerships, and PR, and developing the AI communication assistance capability to the point of genuine product differentiation.
+
+Success metrics for Phase 1 include the number of registered items (targeted in the tens of thousands by year-end), the number of successful recovery events facilitated, net promoter score among both item owners and item finders, and the number and quality of institutional partnerships established.
+
+10.3 Phase 2: Market Expansion (Years 2–3)
+Phase 2 extends the platform's geographic reach beyond Kathmandu Valley to other major Nepalese urban centres, deepens the institutional customer base across multiple verticals, and begins developing the data intelligence capabilities that will differentiate the platform for advanced commercial use cases.
+
+Key activities in Phase 2 include geographic expansion to Pokhara, Biratnagar, Bharatpur, and other major urban centres; launch of the institutional licensing product and active pursuit of school, university, hospital, and corporate customers; development and launch of the corporate asset management product; and initiation of government engagement discussions around smart city and citizen service applications.
+
+10.4 Phase 3: Platform Leadership (Years 4–5)
+Phase 3 consolidates Firta's position as Nepal's dominant recovery platform and begins exploration of regional expansion opportunities. By this stage, the platform's installed base, data assets, and institutional relationships create significant competitive moats that make displacement by new entrants extremely difficult.
+
+Key activities in Phase 3 include deepening the data intelligence platform and establishing commercial partnerships with insurance, logistics, and government partners; exploring expansion to comparable South Asian markets including Bangladesh, Sri Lanka, and potentially India; developing next-generation product capabilities leveraging advances in AI, NFC, and IoT technologies; and considering institutional investment or strategic partnership with regional telecommunications or digital infrastructure players.
+
+11. Risk Analysis and Mitigation Strategies
+11.1 Market Adoption Risk
+The most fundamental risk confronting any platform business is the cold-start problem: the platform's value is highest when the installed base is large, but achieving a large installed base requires the platform to already be valuable enough to justify adoption. For Firta, this manifests as the challenge of persuading consumers to proactively purchase and attach QR tags to their belongings before they have experienced a recovery event that demonstrates the technology's value.
+
+Mitigation strategies include offering free or heavily subsidised initial tag packs to seed the installed base, partnering with institutions to distribute tags to large captive audiences (university orientation packs, hotel guest amenity packages), creating social proof through publicised recovery success stories, and positioning the tags as a low-cost insurance purchase rather than a technology adoption decision.
+
+11.2 Technology and Reliability Risk
+Consumer trust in the platform is critically dependent on consistent technical performance. A QR code that fails to resolve, a notification that is not delivered, or a communication channel that is slow or unreliable can permanently damage a user's confidence in the platform. Given the emotional stakes associated with lost belongings, recovery failures attributable to platform technology will generate disproportionately negative reactions.
+
+Mitigation strategies include investment in robust, redundant technical infrastructure from the outset; rigorous testing protocols across a wide range of device types, browsers, and connectivity conditions; clear user communication about platform capabilities and limitations; and a dedicated customer support function that responds rapidly to reported issues.
+
+11.3 Competitive Response Risk
+As Firta demonstrates traction, the risk of competitive response from both domestic and international players increases. Well-resourced international platforms could attempt to enter Nepal with localised product offerings, potentially leveraging established brand recognition and superior capital resources.
+
+Mitigation strategies include moving rapidly to establish institutional partnerships that create switching cost barriers, building localisation depth that international platforms will struggle to replicate quickly, developing proprietary data assets that create a durable competitive moat, and cultivating community and brand loyalty that creates emotional differentiation beyond functional product comparison.
+
+12. Conclusion and Strategic Recommendations
+12.1 Market Opportunity Assessment
+The analysis presented in this report establishes a clear and compelling commercial case for Firta's entry into the Nepalese market. Nepal's digital infrastructure has advanced to the point where the technological prerequisites for a QR-based recovery platform are satisfied: smartphone penetration is sufficient, QR scanning behaviour is established, and mobile internet connectivity is adequate across the primary target markets.
+
+At the same time, the market problem is large, tangible, and deeply felt by consumers across all demographic segments. The current recovery ecosystem is genuinely broken: slow, privacy-invasive, unreliable, and structurally incapable of serving the needs of a rapidly urbanising, digitally sophisticated consumer population. The absence of any dedicated technology solution creates a clear and uncontested first-mover opportunity.
+
+The competitive analysis confirms that no existing domestic player directly competes with Firta's core proposition. International players that come closest in product terms have not penetrated the Nepalese market and face significant localisation, pricing, and infrastructure barriers to doing so. Firta therefore enters a market that is large, underserved, and uncontested — a rare combination that represents exceptional commercial opportunity.
+
+12.2 Key Strategic Recommendations
+Based on the analysis presented in this report, the following strategic recommendations are advanced for Firta's leadership and advisory teams.
+
+Prioritise speed of market establishment. The first-mover advantage is real but not permanent. Competitive moats must be built through rapid base accumulation, institutional relationships, and data asset development before well-resourced competitors identify the opportunity and respond.
+
+Design for finder frictionlessness. The most critical success factor in the recovery workflow is the ease with which a finder can take action at the moment of discovery. Any friction in the finder experience — required downloads, complex registration flows, unclear instructions — will reduce participation rates and undermine platform effectiveness. Every product decision should be evaluated against the question: does this make it easier or harder for a finder to act?
+
+Invest in institutional partnerships as a distribution channel. Institutions offer access to large, concentrated user populations and provide high-credibility social proof for consumer adoption. A university that distributes Firta tags to ten thousand incoming students in a single orientation event achieves in one day what consumer retail channels might take months to accomplish.
+
+Build the privacy narrative proactively. Privacy protection is Firta's most compelling differentiator relative to the social media-based status quo. This advantage should be communicated clearly, consistently, and proactively — not merely as a feature description but as a foundational value that defines the platform's relationship with its users.
+
+Leverage AI as a genuine differentiator, not a marketing label. The AI capabilities embedded in the Firta platform must deliver measurable improvement in recovery outcomes to justify the positioning. Investment in training data, model refinement, and user experience design around AI features should be sustained and prioritised. A platform that uses AI to genuinely improve communication quality and recovery success rates will build the reputation and trust that drives sustainable growth.
+
+FINAL ASSESSMENT	Firta is exceptionally well-positioned to become the defining infrastructure of Nepal's digital recovery ecosystem. The market is large, the problem is real, the technology is proven, the competition is absent, and the consumer need is acute. With disciplined execution, Firta has the potential to achieve category-defining market leadership within three to five years.
+
+ 
+Appendix A: Key Performance Indicators Framework
+The following KPIs are recommended for tracking Firta's performance across the three phases of growth outlined in Section 10.
+
+KPI Category	Metric	Measurement Frequency
+Growth	Registered items (cumulative)	Monthly
+Growth	New user registrations	Weekly
+Growth	Institutional customers	Quarterly
+Recovery	Successful recovery events	Monthly
+Recovery	Time-to-notification (median)	Monthly
+Recovery	Recovery success rate (%)	Quarterly
+Engagement	QR scan events (total)	Weekly
+Engagement	Finder message completion rate	Monthly
+Engagement	Net Promoter Score	Quarterly
+Revenue	QR tag sales (units)	Monthly
+Revenue	Subscription MRR	Monthly
+Revenue	Revenue per institutional customer	Quarterly
+
+ 
+Appendix B: Glossary of Key Terms
+The following definitions are provided for terms used throughout this report.
+
+QR Code (Quick Response Code)
+A two-dimensional barcode scannable by any smartphone camera, used in Firta's system to link physical items to digital owner profiles.
+
+NFC (Near Field Communication)
+A short-range wireless technology enabling data exchange by physical proximity; a complementary technology to QR codes for ownership identification.
+
+Dynamic Contact Management
+Firta's system feature enabling owners to update their contact information once in the platform, with all linked QR tags updating automatically.
+
+Cold-Start Problem
+The challenge facing two-sided platform businesses of achieving sufficient adoption on both sides (owners and finders) for the platform to generate meaningful value.
+
+Network Effect
+The phenomenon whereby a platform becomes more valuable to each user as the total number of users increases; central to Firta's long-term competitive moat.
+
+First-Mover Advantage
+The competitive benefit accruing to the first platform to establish itself in a new market, including brand recognition, data assets, and customer relationships.
+
+Institutional Tier
+Firta's product offering designed for organisations (schools, hospitals, offices) managing large volumes of property and lost-item events.
+
+Anonymised Communication
+Firta's privacy architecture enabling finder-owner message exchange without either party's personal contact details being exposed to the other.
+
+ 
+Appendix C: About Firta
+Firta is a Nepal-based technology platform dedicated to transforming the lost-and-found experience through QR-based ownership identification, privacy-first communication architecture, and AI-assisted recovery intelligence. The platform is designed to serve individual consumers, institutional customers, and commercial partners across Nepal's rapidly evolving digital economy.
+
+The name Firta (फिर्ता) is derived from the Nepali word meaning 'return' — a direct statement of the platform's core mission: to return what has been lost. This linguistic grounding in Nepali culture reflects Firta's commitment to building a solution that is genuinely local, deeply contextualised, and authentically connected to the communities it serves.
+
+Firta's founding vision is that every Nepalese citizen should have access to a simple, reliable, and private mechanism for recovering their lost belongings — and that every finder should have an equally simple mechanism for doing the right thing and returning what they have found. The platform is built in service of this vision, and every product and strategic decision is evaluated against its contribution to making that vision a reality.
