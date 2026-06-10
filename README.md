@@ -125,3 +125,371 @@ License & Usage Terms
 Distributed under the terms of the MIT Software License. The code and architecture patterns used in this system are free to modify and adapt for both commercial and personal application deployments without requiring prior structural authorization.
 
 The software is provided "as is", without warranty of any kind, express or implied. For further compliance details, review the license conditions in our full terms of service documentation.
+---
+
+## Database Architecture & SQL Schema
+
+The persistence layer relies on highly normalized PostgreSQL tables hosted on Supabase. Execute the relational statements below directly inside your Supabase SQL Editor to provision the needed storage tables, indices, and foreign keys:
+
+```sql
+-- ============================================================================
+-- FIRTA RELATIONAL DATABASE CONFIGURATION SCHEMA
+-- TARGET PLATFORM: POSTGRESQL V15+ (SUPABASE OPTIMIZED)
+-- ============================================================================
+
+CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
+
+-- ----------------------------------------------------------------------------
+-- TABLE: profiles
+-- DESCRIPTION: Holds user account definitions and authentication tracking states
+-- ----------------------------------------------------------------------------
+CREATE TABLE public.profiles (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    email VARCHAR(255) UNIQUE NOT NULL,
+    password_hash VARCHAR(255) NOT NULL,
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP NOT NULL,
+    updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP NOT NULL
+);
+
+-- ----------------------------------------------------------------------------
+-- TABLE: items
+-- DESCRIPTION: Stores tracking configurations for physical assets linked to QR codes
+-- ----------------------------------------------------------------------------
+CREATE TABLE public.items (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    owner_id UUID NOT NULL REFERENCES public.profiles(id) ON DELETE CASCADE,
+    tag_id VARCHAR(50) UNIQUE NOT NULL,
+    name VARCHAR(100) NOT NULL,
+    description TEXT,
+    category VARCHAR(50) DEFAULT 'General'::character varying NOT NULL,
+    is_lost BOOLEAN DEFAULT false NOT NULL,
+    total_scans INTEGER DEFAULT 0 NOT NULL,
+    last_scanned_date TIMESTAMP WITH TIME ZONE,
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP NOT NULL,
+    updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP NOT NULL
+);
+
+-- ----------------------------------------------------------------------------
+-- TABLE: messages
+-- DESCRIPTION: Contains finder messages assigned to tracked assets
+-- ----------------------------------------------------------------------------
+CREATE TABLE public.messages (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    item_id UUID NOT NULL REFERENCES public.items(id) ON DELETE CASCADE,
+    finder_contact VARCHAR(150),
+    message_content TEXT NOT NULL,
+    geo_location_lat NUMERIC(10, 7),
+    geo_location_lng NUMERIC(10, 7),
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP NOT NULL
+);
+
+-- ----------------------------------------------------------------------------
+-- DATABASE PERFORMANCE INDEX ARCHITECTURE
+-- ----------------------------------------------------------------------------
+CREATE INDEX idx_items_owner ON public.items(owner_id);
+CREATE INDEX idx_items_tag ON public.items(tag_id);
+CREATE INDEX idx_messages_item ON public.messages(item_id);
+
+-- ----------------------------------------------------------------------------
+-- AUTOMATED UPDATE TIMESTAMP FUNCTION
+-- ----------------------------------------------------------------------------
+CREATE OR REPLACE FUNCTION update_modified_column()
+RETURNS TRIGGER AS $$
+BEGIN
+    NEW.updated_at = NOW();
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER update_profiles_modtime 
+    BEFORE UPDATE ON public.profiles 
+    FOR EACH ROW EXECUTE PROCEDURE update_modified_column();
+
+CREATE TRIGGER update_items_modtime 
+    BEFORE UPDATE ON public.items 
+    FOR EACH ROW EXECUTE PROCEDURE update_modified_column();
+Environmental Variables Configuration
+The application requires specific parameters initialized in the backend execution container to open channels to the Supabase client. Duplicate the layout below into a file named .env inside the project root workspace:
+
+Code snippet
+# ==============================================================================
+# FIRTA RUNTIME SYSTEM ENVIRONMENT VARIABLES CONFIGURATION FILE
+# DO NOT COMMIT TRACEABLE VALUES ENCRYPTED WITH THIS MATRIX INTO SOURCE CONTROL
+# ==============================================================================
+
+# Node.js Express Operational Runtime Space
+PORT=3000
+NODE_ENV=development
+
+# Server Cryptographic Key Footprints
+SESSION_SECRET=e7c8b9d4a3f2e10c9b8a7f6e5d4c3b2a10f9e8d7c6b5a4f3e2d1c0b9a8f7e6d5
+COOKIE_MAX_AGE=2592000000
+
+# Remote Data Connection Access Points (Supabase API Grid)
+SUPABASE_URL=[https://your-project-id.supabase.co](https://your-project-id.supabase.co)
+SUPABASE_ANON_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNsdWItZmlydGEiLCJyb2xlIjoiYW5vbiIsImlhdCI6MTY3MjUwMDAwMCwiZXhwIjoyMTQ3NDgzNjQ3fQ.your-detailed-anon-key-signature-here
+Step-by-Step Installation & Deployment
+Follow these sequential bash instructions exactly to pull down dependencies, verify files, configure data channels, and launch the application environment locally:
+
+1. Project Initialization & Dependency Installation
+Bash
+# Clone or create the directory workspace and access the root folder
+cd firta
+
+# Initialize standard runtime packages configuration manifest
+npm install
+
+# Verify primary operational packages are pulled down cleanly
+npm install express @supabase/supabase-js bcrypt cookie-parser dotenv ejs qrcode
+2. Environment Verification File Copying
+Bash
+# Generate the live active runtime environmental parameters tracking file
+cp .env.example .env
+
+# Open and customize the values inside your preferred text editor
+nano .env
+3. Database Ingestion Blueprint
+Open up the web console portal for your Supabase Account Space.
+
+Browse inside the dashboard navigation links down to the SQL Editor tab module.
+
+Paste the contents compiled in the Database Architecture & SQL Schema text block directly into the window console query area.
+
+Click the execution indicator button to initialize all relational table schemas.
+
+4. Local Web Server Ignition
+Bash
+# Start up the tracking application server using standard node pipelines
+node server.js
+
+# Alternative development mode using automatic nodemon triggers
+npm run dev
+Backend API and Routing Specification
+The core routing framework handles standard inputs and returns clean payloads or views. The code design pattern for endpoints follows standard Express routing structures:
+
+Authentication Routing Engine (/routes/auth.js)
+JavaScript
+const express = require('express');
+const router = express.Router();
+const bcrypt = require('bcrypt');
+const supabase = require('../config/db');
+
+// Handle Account Sign Up Form Ingestion Pipeline
+router.post('/signup', async (req, res) => {
+    try {
+        const { email, password } = req.body;
+        if (!email || !password) {
+            return res.status(400).render('signup', { error: 'All fields are mandatory.' });
+        }
+        
+        const passwordHash = await bcrypt.hash(password, 10);
+        const { data, error } = await supabase
+            .from('profiles')
+            .insert([{ email, password_hash: passwordHash }])
+            .select();
+
+        if (error) throw error;
+        res.redirect('/login');
+    } catch (err) {
+        res.status(500).render('signup', { error: err.message });
+    }
+});
+
+// Process Account Login Credential Verification
+router.post('/login', async (req, res) => {
+    try {
+        const { email, password } = req.body;
+        const { data: user, error } = await supabase
+            .from('profiles')
+            .select('*')
+            .eq('email', email)
+            .single();
+
+        if (error || !user) {
+            return res.status(400).render('login', { error: 'Invalid account credentials.' });
+        }
+
+        const validPassword = await bcrypt.compare(password, user.password_hash);
+        if (!validPassword) {
+            return res.status(400).render('login', { error: 'Invalid account credentials.' });
+        }
+
+        res.cookie('userId', user.id, { maxAge: 2592000000, httpOnly: true });
+        res.redirect('/dashboard');
+    } catch (err) {
+        res.status(500).render('login', { error: err.message });
+    }
+});
+
+module.exports = router;
+Middleware Logic & Security Framework
+Route access security checks run via interception controllers attached before protected pipelines. This module inspects incoming state hashes before allowing rendering engines to proceed:
+
+JavaScript
+/**
+ * Authentication Gateways Verification Layer Middleware Module
+ * File: /middleware/auth.js
+ */
+
+module.exports = {
+    // Intercept requests directed at secure areas needing proof of session identity
+    requireAuth: (req, res, next) => {
+        if (req.cookies && req.cookies.userId) {
+            req.userId = req.cookies.userId;
+            return next();
+        }
+        return res.redirect('/login');
+    },
+
+    // Safeguard configuration routes reserved exclusively for unlogged visitors
+    guestOnly: (req, res, next) => {
+        if (req.cookies && req.cookies.userId) {
+            return res.redirect('/dashboard');
+        }
+        return next();
+    }
+};
+Frontend View Templates & EJS Hierarchy
+Views are rendered dynamically on request hooks. The UI follows a structured modular template system:
+
+🧩 Global Application Shell Header (/views/partials/header.ejs)
+HTML
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Firta — Lost and Found Ecosystem</title>
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="stylesheet" href="/css/components.css">
+</head>
+<body>
+<header class="app-header">
+    <div class="logo-area">
+        <a href="/"><h1>FIRTA</h1></a>
+    </div>
+    <nav class="navigation-bar">
+        <a href="/dashboard">Dashboard</a>
+        <a href="/add-item">Register Asset</a>
+        <form action="/logout" method="POST" class="inline-form">
+            <button type="submit" class="logout-btn">Session Exit</button>
+        </form>
+    </nav>
+</header>
+<main class="viewport-container">
+Client-Side JavaScript & AJAX Implementation
+The UI provides instant tracking changes without full page reloads using clean asynchronous scripts:
+
+JavaScript
+/**
+ * Asynchronous Dynamic State Synchronizer
+ * File: /public/js/telemetry.js
+ */
+
+document.addEventListener("DOMContentLoaded", () => {
+    const lostModeToggles = document.querySelectorAll(".lost-mode-checkbox");
+
+    lostModeToggles.forEach(toggle => {
+        toggle.addEventListener("change", async (event) => {
+            const targetTagId = event.target.dataset.tagId;
+            const targetState = event.target.checked;
+
+            try {
+                const response = await fetch(`/items/toggle-lost/${targetTagId}`, {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({ isLost: targetState })
+                });
+
+                if (!response.ok) {
+                    throw new Error("Telemetry sync error dropped connection.");
+                }
+
+                const data = await response.json();
+                console.log("State sync completed successfully:", data.message);
+                
+                // Toggle page styling hooks based on state transitions
+                const cardElement = document.getElementById(`item-card-${targetTagId}`);
+                if (cardElement) {
+                    cardElement.classList.toggle("item-state-alert", targetState);
+                }
+            } catch (err) {
+                console.error("Critical AJAX exception captured:", err);
+                event.target.checked = !targetState; // Revert checkbox UI state on exception
+                alert("Synchronization failure. Could not update database parameters.");
+            }
+        });
+    });
+});
+QR Code Generation & File System Pipeline
+When a new item is saved to Firta, a generation loop handles structural string creation and image compilation:
+
+JavaScript
+const QRCode = require('qrcode');
+const path = require('path');
+const fs = require('fs');
+
+/**
+ * Compiles a high-resolution, custom teal QR code for an asset.
+ * @param {string} tagId - The unique tracking string identifier.
+ */
+async function generateAssetQRCode(tagId) {
+    const targetUrl = `https://firta.net/finder/${tagId}`;
+    const outputDirectory = path.join(__dirname, '../public/qr');
+    const targetFilePath = path.join(outputDirectory, `${tagId}.png`);
+
+    // Ensure output directories exist securely on disk before writing assets
+    if (!fs.existsSync(outputDirectory)) {
+        fs.mkdirSync(outputDirectory, { recursive: true });
+    }
+
+    const compilationOptions = {
+        color: {
+            dark: '#008080',  // High-contrast deep teal
+            light: '#FFFFFF' // Clean white background matrix block
+        },
+        errorCorrectionLevel: 'H', // Robust error correction for scuffed physical tags
+        width: 1024
+    };
+
+    await QRCode.toFile(targetFilePath, targetUrl, compilationOptions);
+    console.log(`Successfully compiled high-density QR vector asset at: ${targetFilePath}`);
+}
+Troubleshooting, Edge Cases & Operational Playbooks
+This guide details resolutions for known edge-case anomalies across deployment scopes.
+
+🐛 Problem: Database Synchronization Dropping Queries
+Root Vector Cause: Appears when the Supabase project collection enters an inactive hibernation lock due to long spans of developer activity dormancy.
+
+Resolution Pipeline Action: Access the web administrative console panels for the project site. Select the structural wake trigger flag indicator button to manually prompt reactivation.
+
+🐛 Problem: Generated QR Files Throwing Target Path Storage Errors
+Root Vector Cause: Occurs when host execution containers lack write permissions to make updates within the server directory structures.
+
+Resolution Pipeline Action: Execute permissions structural reassignments using standard user configurations:
+
+Bash
+chmod -R 755 public/qr/
+🐛 Problem: Session Expirations Dropping Mid-Browser Tests
+Root Vector Cause: The local system clock does not match the standardized network timestamps used by Supabase database validation engines.
+
+Resolution Pipeline Action: Synchronize developer system settings to NTP atomic targets using standard network clock configs.
+
+Contributing Guidelines
+We welcome community feedback to improve the Firta lost-and-found tracking system. Follow these steps to submit additions to the codebase:
+
+Fork the Main Project Repository Workspace: Build your clone of the production source files to start working.
+
+Initialize Local Topic Branches: Isolate experimental changes in their own branch before merging:
+
+Bash
+git checkout -b feature/optimization-refactor
+Run Code Formatting Verifications: Ensure all updates match the existing styling standards across the project.
+
+Submit a Detailed Pull Request (PR): Clearly describe your changes, bug fixes, and feature additions in the review request.
+License & Usage Terms
+Distributed under the terms of the MIT Software License. The code and architecture patterns used in this system are free to modify and adapt for both commercial and personal application deployments without requiring prior structural authorization.
+
+The software is provided "as is", without warranty of any kind, express or implied. For further compliance details, review the license conditions in our full terms of service documentation.
