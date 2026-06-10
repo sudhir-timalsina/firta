@@ -127,6 +127,7 @@ firta/
 
 The persistence layer relies on highly normalized PostgreSQL tables hosted on Supabase. Execute the relational statements below directly inside your Supabase SQL Editor to provision the needed storage tables, indices, and foreign keys:
 
+```sql
 -- ============================================================================
 -- FIRTA RELATIONAL DATABASE CONFIGURATION SCHEMA
 -- TARGET PLATFORM: POSTGRESQL V15+ (SUPABASE OPTIMIZED)
