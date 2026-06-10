@@ -121,10 +121,6 @@ firta/
 ├── server.js                 ← Application orchestration kernel, HTTP server bootstrap, and configuration file
 └── package.json              ← Declarative runtime inventory, package lock, and manifest specifications
 
-License & Usage Terms
-Distributed under the terms of the MIT Software License. The code and architecture patterns used in this system are free to modify and adapt for both commercial and personal application deployments without requiring prior structural authorization.
-
-The software is provided "as is", without warranty of any kind, express or implied. For further compliance details, review the license conditions in our full terms of service documentation.
 ---
 
 ## Database Architecture & SQL Schema
@@ -208,10 +204,9 @@ CREATE TRIGGER update_profiles_modtime
 CREATE TRIGGER update_items_modtime 
     BEFORE UPDATE ON public.items 
     FOR EACH ROW EXECUTE PROCEDURE update_modified_column();
+
 Environmental Variables Configuration
 The application requires specific parameters initialized in the backend execution container to open channels to the Supabase client. Duplicate the layout below into a file named .env inside the project root workspace:
-
-Code snippet
 # ==============================================================================
 # FIRTA RUNTIME SYSTEM ENVIRONMENT VARIABLES CONFIGURATION FILE
 # DO NOT COMMIT TRACEABLE VALUES ENCRYPTED WITH THIS MATRIX INTO SOURCE CONTROL
@@ -228,6 +223,7 @@ COOKIE_MAX_AGE=2592000000
 # Remote Data Connection Access Points (Supabase API Grid)
 SUPABASE_URL=[https://your-project-id.supabase.co](https://your-project-id.supabase.co)
 SUPABASE_ANON_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNsdWItZmlydGEiLCJyb2xlIjoiYW5vbiIsImlhdCI6MTY3MjUwMDAwMCwiZXhwIjoyMTQ3NDgzNjQ3fQ.your-detailed-anon-key-signature-here
+
 Step-by-Step Installation & Deployment
 Follow these sequential bash instructions exactly to pull down dependencies, verify files, configure data channels, and launch the application environment locally:
 
@@ -241,6 +237,7 @@ npm install
 
 # Verify primary operational packages are pulled down cleanly
 npm install express @supabase/supabase-js bcrypt cookie-parser dotenv ejs qrcode
+
 2. Environment Verification File Copying
 Bash
 # Generate the live active runtime environmental parameters tracking file
@@ -258,7 +255,6 @@ Paste the contents compiled in the Database Architecture & SQL Schema text block
 Click the execution indicator button to initialize all relational table schemas.
 
 4. Local Web Server Ignition
-Bash
 # Start up the tracking application server using standard node pipelines
 node server.js
 
@@ -268,7 +264,6 @@ Backend API and Routing Specification
 The core routing framework handles standard inputs and returns clean payloads or views. The code design pattern for endpoints follows standard Express routing structures:
 
 Authentication Routing Engine (/routes/auth.js)
-JavaScript
 const express = require('express');
 const router = express.Router();
 const bcrypt = require('bcrypt');
@@ -324,8 +319,6 @@ router.post('/login', async (req, res) => {
 module.exports = router;
 Middleware Logic & Security Framework
 Route access security checks run via interception controllers attached before protected pipelines. This module inspects incoming state hashes before allowing rendering engines to proceed:
-
-JavaScript
 /**
  * Authentication Gateways Verification Layer Middleware Module
  * File: /middleware/auth.js
@@ -353,7 +346,6 @@ Frontend View Templates & EJS Hierarchy
 Views are rendered dynamically on request hooks. The UI follows a structured modular template system:
 
 🧩 Global Application Shell Header (/views/partials/header.ejs)
-HTML
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -379,8 +371,6 @@ HTML
 <main class="viewport-container">
 Client-Side JavaScript & AJAX Implementation
 The UI provides instant tracking changes without full page reloads using clean asynchronous scripts:
-
-JavaScript
 /**
  * Asynchronous Dynamic State Synchronizer
  * File: /public/js/telemetry.js
@@ -425,8 +415,6 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 QR Code Generation & File System Pipeline
 When a new item is saved to Firta, a generation loop handles structural string creation and image compilation:
-
-JavaScript
 const QRCode = require('qrcode');
 const path = require('path');
 const fs = require('fs');
@@ -489,6 +477,7 @@ git checkout -b feature/optimization-refactor
 Run Code Formatting Verifications: Ensure all updates match the existing styling standards across the project.
 
 Submit a Detailed Pull Request (PR): Clearly describe your changes, bug fixes, and feature additions in the review request.
+
 License & Usage Terms
 Distributed under the terms of the MIT Software License. The code and architecture patterns used in this system are free to modify and adapt for both commercial and personal application deployments without requiring prior structural authorization.
 
