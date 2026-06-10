@@ -423,3 +423,57 @@ By simplifying the recovery process, the system promotes trust and cooperation w
 In contexts such as schools, public transportation, and tourism, Firta can significantly reduce the frequency of permanently lost belongings and improve overall public convenience.
 
 Additionally, the multilingual AI-assisted communication system improves accessibility for tourists, non-native speakers, and individuals with limited technical knowledge, making the platform more inclusive.
+Market Gap
+
+The biggest gap is that Nepal has adopted QR technology heavily for payments, but not for ownership and recovery systems. QR acceptance is widespread and public trust in QR-based interactions continues to increase.
+
+
+
+Firta utilizes an existing behavior:
+
+People already scan QR codes daily.
+No training required.
+Low implementation cost.
+6. Revenue Potential
+B2B Model
+
+Charge institutions:
+
+Schools
+Colleges
+Hotels
+Offices
+
+Subscription examples:
+
+Package	Monthly Fee
+Basic	Rs. 500
+Standard	Rs. 1,500
+Enterprise	Rs. 5,000+
+Additional Revenue
+Premium analytics
+Municipality partnerships
+Branded QR stickers
+API integration for institutions
+Corporate asset management
+SWOT Analysis
+Strengths
+First mover advantage in Nepal
+Simple QR technology
+Low operational cost
+Easy scalability
+Weaknesses
+Requires user awareness
+Depends on internet access
+Opportunities
+Expansion across Nepal
+Government partnerships
+Smart city initiatives
+Tourism sector integration
+Threats
+Copycat competitors
+Privacy concerns
+Fake registrations
+8. Market Opportunity Statement
+
+Nepal's rapidly growing digital ecosystem, widespread QR-code familiarity, and absence of a unified lost-and-found platform create a strong market opportunity for Firta. By combining QR technology, multilingual support, and instant owner identification, Firta can become Nepal's first nationwide digital lost-and-found ecosystem, serving educational institutions, businesses, municipalities, and the tourism sector.
