@@ -23,7 +23,7 @@
 - **Lost Mode** — Toggle per item via AJAX, updates Supabase in real-time
 - **Finder Page** — Public page when QR is scanned; every scan is logged
 - **Messaging** — Finders send messages stored in Supabase `messages` table
-- **Scan Tracking** — Total scans + last scanned date shown per item
+- **Scan Tracking** — Total scans + last scanned date shown per item.
 
 ---
 
